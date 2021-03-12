@@ -1,6 +1,6 @@
 #include <iostream>
 #include "estudiante.h"
-#include "jurado.h"
+#include "profesor.h"
 #include "acta.h"
 #include "menu.h"
 

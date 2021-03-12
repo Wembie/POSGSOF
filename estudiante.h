@@ -6,9 +6,9 @@
 
 class Estudiante : public Persona{
     private:
-        int id;
+        std::string carrera;
     public:
-        Estudiante( std::string, int );
+        Estudiante( int, std::string, std::string, int, std::string );
 }
 
 #endif

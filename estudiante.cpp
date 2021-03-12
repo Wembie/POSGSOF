@@ -1,5 +1,5 @@
 #include "estudiante.h"
 
-Estudiante::Estudiante( std::string nombre, int id ) : Persona( nombre ){
-    this->id = id;
+Estudiante::Estudiante( int id, std::string nombre, std::string email, int celular, std::string carrera ) : Persona( id, nombre, email, celular ){
+    this->carrera = carrera;
 }

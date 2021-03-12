@@ -1,15 +1,17 @@
 all: compilar
-compilar: menu acta persona estudiante jurado main
-		g++ -o menu.o acta.o persona.o estudiante.o jurado.o main.o
+compilar: menu criterio acta persona estudiante profesor main
+		g++ -o menu.o criterio.o acta.o persona.o estudiante.o jurado.o main.o
 menu: menu.cpp menu.h
 		g++ -c menu.cpp
+criterio: criterio.cpp criterio.h
+		g++ -c criterio.cpp
 acta: acta.cpp acta.h
 		g++ -c acta.cpp
 persona: persona.cpp persona.h
 		g++ -c persona.cpp
 estudiante: estudiante.cpp estudiante.h
 		g++ -c estudiante.cpp
-jurado: jurado.cpp jurado.h
-		g++ -c jurado.cpp
+profesor: profesor.cpp profesor.h
+		g++ -c profesor.cpp
 main: main.cpp menu.h acta.h persona.h estudiante.h jurado.h
 	  g++ -c main.cpp

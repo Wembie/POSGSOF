@@ -5,9 +5,12 @@
 
 class Persona{
     private:
+        int id;
         std::string nombre;
+        std::string email;
+        int celular;
     public:
-        Persona( std::string );
+        Persona( int, std::string, std::string, int );
 }
 
 //https://www.youtube.com/watch?v=y8Y13enIuUM
