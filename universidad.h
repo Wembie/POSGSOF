@@ -2,6 +2,7 @@
 #define UNIVERSIDAD_H
 
 #include <iostream>
+#include "menu.h"
 #include "acta.h"
 
 class Universidad{
@@ -12,7 +13,12 @@ class Universidad{
         std::list<Estudiante> estudiantes;
     public:
         Universidad( std::list, std::list, std::list );
+        void crearActa();
         void crearProfesor();
-}
+        void crearEstudiante();
+        void mostrarTodasLasActas();
+        void mostrarTodosLosProfesores();
+        void mostrarTodosLosEstudiante();
+};
 
 #endif

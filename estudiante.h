@@ -7,8 +7,10 @@
 class Estudiante : public Persona{
     private:
         std::string carrera;
+        int semestre;
     public:
-        Estudiante( int, std::string, std::string, int, std::string );
-}
+        Estudiante( int, std::string, std::string, int, std::string, int );
+        void mostrarEstudiante();
+};
 
 #endif

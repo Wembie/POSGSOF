@@ -7,7 +7,7 @@
 #include "profesor.h"
 #include "criterio.h"
 
-enum Estado { CERRADO, ABIERTO, PENDIENTE };
+enum Estado{ CERRADO, ABIERTO, PENDIENTE };
 
 class Acta{
     private:
@@ -22,6 +22,7 @@ class Acta{
         std::list<Criterio> criterios;
     public:
         Acta();
-}
+        void mostrarTodasLasActas();
+};
 
 #endif

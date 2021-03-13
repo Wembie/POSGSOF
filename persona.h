@@ -11,7 +11,9 @@ class Persona{
         int celular;
     public:
         Persona( int, std::string, std::string, int );
-}
+        void mostrarPersona();
+        int getId();
+};
 
 //https://www.youtube.com/watch?v=y8Y13enIuUM
 

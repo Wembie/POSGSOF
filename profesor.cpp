@@ -4,3 +4,9 @@ Profesor::Profesor( int id, std::string nombre, std::string email, int celular s
     this->cargo = cargo;
     this->tipo = tipo;
 }
+
+void Profesor::mostrarProfesor(){
+    this->mostrarPersona();
+    std::cout << "Cargo: " << this->cargo << std::endl;
+    std::cout << "Tipo: " << this->tipo<< std::endl;
+}
