@@ -1,7 +1,7 @@
+#include <iostream>
+
 #ifndef CRITERIO_H
 #define CRITERIO_H
-
-#include <iostream>
 
 class Criterio{
     private:

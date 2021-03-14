@@ -1,9 +1,7 @@
 #include "acta.h"
 
-Acta::Acta(){
-
-}
+//Acta::Acta(){
+//}
 
 void Acta::mostrarActa(){
-
 }

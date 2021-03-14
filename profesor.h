@@ -1,8 +1,8 @@
-#ifndef PROFESOR_H
-#define PROFESOR_H
-
 #include <iostream>
 #include "persona.h"
+
+#ifndef PROFESOR_H
+#define PROFESOR_H
 
 enum Tipo{ INTERNO, EXTERNO };
 

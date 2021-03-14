@@ -1,8 +1,8 @@
-#ifndef PERSONA_H
-#define PERSONA_H
-
 #include <iostream>
 #include "persona.h"
+
+#ifndef ESTUDIANTEH
+#define ESTUDIANTE_H
 
 class Estudiante : public Persona{
     private:

@@ -15,5 +15,5 @@ void Persona::mostrarPersona(){
 }
 
 int Persona::getId(){
-    return this->nombre;
+    return this->id;
 }

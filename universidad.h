@@ -1,18 +1,19 @@
-#ifndef UNIVERSIDAD_H
-#define UNIVERSIDAD_H
-
 #include <iostream>
 #include "menu.h"
 #include "acta.h"
+#include "funciones.h"
+
+#ifndef UNIVERSIDAD_H
+#define UNIVERSIDAD_H
 
 class Universidad{
     private:
         std::string nombre;
-        std::list<Acta> actas;
-        std::list<Profesor> profesores;
-        std::list<Estudiante> estudiantes;
+        list<Acta> actas;
+        list<Profesor> profesores;
+        list<Estudiante> estudiantes;
     public:
-        Universidad( std::list, std::list, std::list );
+        Universidad( list<Acta>, list<Profesor>, list<Estudiante> );
         void crearActa();
         void crearProfesor();
         void crearEstudiante();

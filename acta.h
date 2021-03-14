@@ -1,11 +1,13 @@
-#ifndef ACTA_H
-#define ACTA_H
-
 #include <iostream>
 #include <list>
 #include "estudiante.h"
 #include "profesor.h"
 #include "criterio.h"
+
+#ifndef ACTA_H
+#define ACTA_H
+
+using std::list;
 
 enum Estado{ CERRADO, ABIERTO, PENDIENTE };
 
@@ -18,11 +20,11 @@ class Acta{
         Profesor director;
         Profesor codirector;
         std::string enfasis;
-        std::list<Profesor> jurados;
-        std::list<Criterio> criterios;
+        list<Profesor> jurados;
+        list<Criterio> criterios;
     public:
-        Acta();
-        void mostrarTodasLasActas();
+        //Acta();
+        void mostrarActa();
 };
 
 #endif

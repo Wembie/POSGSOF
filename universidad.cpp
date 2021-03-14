@@ -1,6 +1,6 @@
 #include "universidad.h"
 
-Universidad::Universidad( std::list actas, std::list profesores, std::list estudiantes ){
+Universidad::Universidad( list<Acta> actas, list<Profesor> profesores, list<Estudiante> estudiantes ){
     this->nombre = "Pontificia Universidad Javeriana Cali";
     this->actas = actas;
     this->profesores = profesores;
@@ -8,11 +8,10 @@ Universidad::Universidad( std::list actas, std::list profesores, std::list estud
 }
 
 void Universidad::crearActa(){
-
 }
 
 void Universidad::crearProfesor(){
-    int id, celular;
+    int id, celular, tipoProfe;
     std::string nombre, email, cargo;
     Tipo tipo;
     std::cout << "Digita el id del profesor a agregar: ";
@@ -27,8 +26,14 @@ void Universidad::crearProfesor(){
     std::cin >> cargo;
     while( true ){
         std::cout << "Digita el tipo del profesor a agregar [ 0 = INTERNO, 1 = EXTERNO ]: ";
-        std::cin >> tipo;
-        if( tipo == INTERNO || tipo == EXTERNO ){
+        std::cin >> tipoProfe;
+        if( tipoProfe == INTERNO || tipo == EXTERNO ){
+            if( tipoProfe == INTERNO ){
+                tipo = INTERNO;
+            }
+            else if( tipoProfe == EXTERNO ){
+                tipo = EXTERNO;
+            }
             break;
         }
         else{
