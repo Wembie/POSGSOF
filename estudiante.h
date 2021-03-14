@@ -1,7 +1,7 @@
 #include <iostream>
 #include "persona.h"
 
-#ifndef ESTUDIANTEH
+#ifndef ESTUDIANTE_H
 #define ESTUDIANTE_H
 
 class Estudiante : public Persona{
