@@ -13,17 +13,17 @@ enum Estado{ CERRADO, ABIERTO, PENDIENTE };
 
 class Acta{
     private:
-        int codigoActa;
+        int codigo;
         std::string fechaHora;
         Estado estado;
         Estudiante autor;
         Profesor director;
-        Profesor codirector;
+        Profesor coDirector;
         std::string enfasis;
         list<Profesor> jurados;
         list<Criterio> criterios;
     public:
-        //Acta();
+        //Acta( int, std::string, Estado, Estudiante, Profesor, Profesor, std::string, list<Profesor>, list<Criterio> );
         void mostrarActa();
 };
 
