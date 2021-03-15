@@ -23,7 +23,7 @@ class Acta{
         list<Profesor> jurados;
         list<Criterio> criterios;
     public:
-        //Acta( int, std::string, Estado, Estudiante, Profesor, Profesor, std::string, list<Profesor>, list<Criterio> );
+        Acta( int, std::string, Estado, Estudiante, Profesor, Profesor, std::string, list<Profesor>, list<Criterio> );
         void mostrarActa();
 };
 

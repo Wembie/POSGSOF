@@ -9,6 +9,7 @@ class Estudiante : public Persona{
         std::string carrera;
         int semestre;
     public:
+        Estudiante();
         Estudiante( int, std::string, std::string, int, std::string, int );
         void mostrarEstudiante();
 };

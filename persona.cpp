@@ -1,5 +1,9 @@
 #include "persona.h"
 
+Persona::Persona(){
+    
+}
+
 Persona::Persona( int id, std::string nombre, std::string email, int celular ){
     this->id = id;
     this->nombre = nombre;

@@ -11,6 +11,7 @@ class Profesor : public Persona{
         std::string cargo;
         Tipo tipo;
     public:
+        Profesor();
         Profesor( int, std::string, std::string, int, std::string, Tipo );
         void mostrarProfesor();
 };

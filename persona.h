@@ -10,6 +10,7 @@ class Persona{
         std::string email;
         int celular;
     public:
+        Persona();
         Persona( int, std::string, std::string, int );
         void mostrarPersona();
         int getId();
