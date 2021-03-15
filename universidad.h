@@ -1,4 +1,8 @@
 #include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <sstream>
 #include "menu.h"
 #include "acta.h"
 #include "funciones.h"
@@ -9,12 +13,14 @@
 class Universidad{
     private:
         std::string nombre;
+        //list<int> codigosActas;
         list<Acta> actas;
         list<Profesor> profesores;
         list<Estudiante> estudiantes;
     public:
         Universidad( list<Acta>, list<Profesor>, list<Estudiante> );
-        void crearActa();
+        void crearCriterio();
+        void crearActa( int );
         void crearProfesor();
         void crearEstudiante();
         void mostrarTodasLasActas();

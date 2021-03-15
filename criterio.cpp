@@ -6,3 +6,7 @@ Criterio::Criterio( std::string tema, float calificacion, float ponderacion, std
     this->ponderacion = ponderacion;
     this->obsarvacion = obsarvacion;
 }
+
+void Criterio::mostrarCriterio(){
+    
+}

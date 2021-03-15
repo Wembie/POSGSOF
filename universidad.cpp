@@ -7,7 +7,32 @@ Universidad::Universidad( list<Acta> actas, list<Profesor> profesores, list<Estu
     this->estudiantes = estudiantes;
 }
 
-void Universidad::crearActa(){
+void Universidad::crearCriterio(){
+
+}
+
+void Universidad::crearActa( int codigo ){
+    std::ofstream archivo;
+    std::string codigoActa( std::to_string( codigo ) );
+    archivo.open( "Actas/" + codigoActa, std::ios::out );
+    if( archivo.fail() ){
+        std::cout << "Nose pudo abrir el archivo";
+        exit( 1 );
+    }
+    auto t = std::time( nullptr );
+    auto tm = *std::localtime( &t );
+    std::ostringstream oss;
+    oss << std::put_time( &tm, "Fecha: %d-%m-%Y\nHora: %H:%M:%S" );
+    auto fecha = oss.str();
+    Estado estado;
+    Estudiante autor;
+    Profesor director;
+    Profesor coDirector;
+    std::string enfasis;
+    list<Profesor> jurados;
+    list<Criterio> criterios;
+    //
+    actas.push_back( Acta( codigo, fecha, estado, autor, director, coDirector, enfasis, jurados, criterios ) );
 }
 
 void Universidad::crearProfesor(){

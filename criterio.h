@@ -11,6 +11,7 @@ class Criterio{
         std::string obsarvacion;
     public:
         Criterio( std::string, float, float, std::string );
+        void mostrarCriterio();
 };
 
 #endif

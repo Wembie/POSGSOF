@@ -13,4 +13,5 @@ Acta::Acta( int codigo, std::string fechaHora, Estado estado, Estudiante autor, 
 }
 
 void Acta::mostrarActa(){
+    
 }

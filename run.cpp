@@ -15,5 +15,9 @@ int main()
     std::cout << fecha << std::endl;
 
     enum Estado { CERRADO, ABIERTO, PENDIENTE };
-    std::cout << CERRADO;
+    std::cout << CERRADO << std::endl;
+    int codigo;
+    codigo = 0;
+    std::string a(std::to_string(codigo));
+    std::cout << "Actas/" + a;
 }
