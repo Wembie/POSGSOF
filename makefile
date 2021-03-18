@@ -1,21 +1,22 @@
 all: compilar
+
 compilar: funciones menu criterio persona estudiante profesor acta universidad main
-		g++ -o PontificiaUniversidadJaverianaCali funciones.o menu.o criterio.o persona.o estudiante.o profesor.o acta.o universidad.o main.o
-funciones: funciones.cpp funciones.h
-		g++ -c funciones.cpp
-menu: menu.cpp menu.h
-		g++ -c menu.cpp
-criterio: criterio.cpp criterio.h
-		g++ -c criterio.cpp
-persona: persona.cpp persona.h
-		g++ -c persona.cpp
-estudiante: estudiante.cpp estudiante.h
-		g++ -c estudiante.cpp
-profesor: profesor.cpp profesor.h
-		g++ -c profesor.cpp
-acta: acta.cpp acta.h
-		g++ -c acta.cpp
-universidad: universidad.cpp universidad.h
-		g++ -c universidad.cpp
-main: main.cpp funciones.h menu.h criterio.h persona.h estudiante.h profesor.h acta.h universidad.h
-	  g++ -c main.cpp
+		g++ -o ejecutable funciones.o menu.o criterio.o persona.o estudiante.o profesor.o acta.o universidad.o main.o
+funciones: archivos/funciones.cpp librerias/funciones.h
+		g++ -c archivos/funciones.cpp
+menu: archivos/menu.cpp librerias/menu.h
+		g++ -c archivos/menu.cpp
+criterio: archivos/criterio.cpp librerias/criterio.h
+		g++ -c archivos/criterio.cpp
+persona: archivos/persona.cpp librerias/persona.h
+		g++ -c archivos/persona.cpp
+estudiante: archivos/estudiante.cpp librerias/estudiante.h
+		g++ -c archivos/estudiante.cpp
+profesor: archivos/profesor.cpp librerias/profesor.h
+		g++ -c archivos/profesor.cpp
+acta: archivos/acta.cpp librerias/acta.h
+		g++ -c archivos/acta.cpp
+universidad: archivos/universidad.cpp librerias/universidad.h
+		g++ -c archivos/universidad.cpp
+main: main.cpp librerias/funciones.h librerias/menu.h librerias/criterio.h librerias/persona.h librerias/estudiante.h librerias/profesor.h librerias/acta.h librerias/universidad.h
+		g++ -c main.cpp
