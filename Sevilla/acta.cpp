@@ -4,7 +4,7 @@ Acta::Acta(){
     
 }
 
-Acta::Acta( int codigo, std::string fechaHora, Estado estado, Estudiante autor, Profesor director, std::string enfasis, list<Profesor> jurados, list<Criterio> criterios ){
+Acta::Acta( int codigo, std::string fechaHora, Estado estado, Estudiante autor, Profesor director, std::string enfasis, std::string modalidad, list<Profesor> jurados, list<Criterio> criterios ){
     this->codigo = codigo;
     this->fechaHora = fechaHora;
     this->estado = estado;
@@ -12,11 +12,12 @@ Acta::Acta( int codigo, std::string fechaHora, Estado estado, Estudiante autor, 
     this->director = director;
     this->coDirectorActa = "N/A";
     this->enfasis = enfasis;
+    this->modalidad = modalidad;
     this->jurados = jurados;
     this->criterios = criterios;
 }
 
-Acta::Acta( int codigo, std::string fechaHora, Estado estado, Estudiante autor, Profesor director, Profesor coDirector, std::string enfasis, list<Profesor> jurados, list<Criterio> criterios ){
+Acta::Acta( int codigo, std::string fechaHora, Estado estado, Estudiante autor, Profesor director, Profesor coDirector, std::string enfasis, std::string modalidad, list<Profesor> jurados, list<Criterio> criterios ){
     this->codigo = codigo;
     this->fechaHora = fechaHora;
     this->estado = estado;
@@ -25,6 +26,7 @@ Acta::Acta( int codigo, std::string fechaHora, Estado estado, Estudiante autor, 
     this->coDirector = coDirector;
     this->coDirectorActa = "Si";
     this->enfasis = enfasis;
+    this->modalidad = modalidad;
     this->jurados = jurados;
     this->criterios = criterios;
 }

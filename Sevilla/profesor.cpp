@@ -14,3 +14,7 @@ void Profesor::mostrarProfesor(){
     std::cout << "Cargo: " << this->cargo << std::endl;
     std::cout << "Tipo: " << this->tipo<< std::endl;
 }
+
+Tipo Profesor::getTipo(){
+    return this->tipo;
+}

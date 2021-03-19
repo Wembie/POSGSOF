@@ -21,12 +21,13 @@ class Acta{
         Profesor coDirector;
         std::string coDirectorActa;
         std::string enfasis;
+        std::string modalidad;
         list<Profesor> jurados;
         list<Criterio> criterios;
     public:
         Acta();
-        Acta( int, std::string, Estado, Estudiante, Profesor, std::string, list<Profesor>, list<Criterio> );
-        Acta( int, std::string, Estado, Estudiante, Profesor, Profesor, std::string, list<Profesor>, list<Criterio> );
+        Acta( int, std::string, Estado, Estudiante, Profesor, std::string, std::string, list<Profesor>, list<Criterio> );
+        Acta( int, std::string, Estado, Estudiante, Profesor, Profesor, std::string, std::string, list<Profesor>, list<Criterio> );
         void mostrarActa();
 };
 
