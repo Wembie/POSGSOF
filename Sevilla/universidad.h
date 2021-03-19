@@ -21,7 +21,7 @@ class Universidad{
         Universidad( list<Acta>, list<Profesor>, list<Estudiante> );
         void crearProfesor();
         void crearEstudiante();
-        void crearCriterio();
+        Criterio crearCriterio( int );
         void crearActa( int );
         void mostrarTodasLasActas();
         void mostrarTodosLosProfesores();

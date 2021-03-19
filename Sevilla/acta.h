@@ -9,7 +9,7 @@
 
 using std::list;
 
-enum Estado{ CERRADO, ABIERTO, PENDIENTE };
+enum Estado{ CERRADA, ABIERTA, PENDIENTE };
 
 class Acta{
     private:
@@ -18,7 +18,7 @@ class Acta{
         Estado estado;
         Estudiante autor;
         Profesor director;
-        Profesor coDirector;
+        auto coDirector;
         std::string enfasis;
         list<Profesor> jurados;
         list<Criterio> criterios;

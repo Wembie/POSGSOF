@@ -67,8 +67,26 @@ void Universidad::crearEstudiante(){
     estudiantes.push_back( Estudiante( id, nombre, email, celular, carrera, semestre ) );
 }
 
-void Universidad::crearCriterio(){
-
+Criterio Universidad::crearCriterio( int i ){
+    std::string tema, observacion;
+    float calificacion, ponderacion;
+    std::cout << "Digita el tema del criterio " << i << ":" << std::endl;
+    std::cin >> tema;
+    while( true ){
+        std::cout << "Digita el califacion del criterio: " << i << ":" << std::endl;
+        std::cin >> calificacion;
+        if( calificacion >= 0 || calificacion <= 5 ){
+            break;
+        }
+        else{
+            std::cout << "Calificacion invalida, por favor ingresalo nuevamente" << std::endl;
+        }
+    }
+    std::cout << "Digita la ponderacion en % del criterio " << i << ":" << std::endl;
+    std::cin >> ponderacion;
+    std::cout << "Digita la observacoin del criterio " << i << ":" << std::endl;
+    std::cin >> observacion;
+    return Criterio( tema, calificacion, ponderacion / 100, observacion );
 }
 
 void Universidad::crearActa( int codigo ){
@@ -198,12 +216,61 @@ void Universidad::crearActa( int codigo ){
     }
     std::cout << "Digita el enfasis de la acta: ";
     std::cin >> enfasis;
-    //agregar jurados y criterios
-
-    
-
-
-    
+    int i, capacidadJurados = 2;
+    for( i = 0; i < capacidadJurados; i++){
+        while( true ){
+            int id, encontro = 0;
+            std::cout << "Para agregar el jurado " << i << " a la acta diga su id: ";
+            std::cin >> id;
+            for( list<Profesor>::iterator profesor = profesores.begin(); profesor != profesores.end(); profesor++ ){
+                if( profesor->getId() == id ){
+                    jurados.push_back( profesor );
+                    encontro = 1;
+                    break;
+                }
+            }
+            if( encontro == 0 ){
+                std::cout << "Id invalido" << std::endl;
+            }
+            else if( encontro == 1){
+                break;
+            }
+        }
+    }
+    int i, cuantosCriterosParaAgregar;
+    while( true ){
+        std::cout << "Cuantos criterios deseas agregar al acta?: ";
+        std::cin >> cuantosCriterosParaAgregar;
+        if( cuantosCriterosParaAgregar > 0 ){
+            break;
+        }
+        else{
+            std::cout << "La cantidad de criterios debe ser mayor a 0" << std::endl;
+        }
+    }
+    for( i = 0; i < cuantosCriterosParaAgregar; i++){
+        criterios.push_back( crearCriterio( i ) );
+    }
+    int estadoActa;
+    while( true ){
+        std::cout << "Digita el estado de la acta: ";
+        std::cin >> estadoActa; 
+        if( estadoActa == CERRADA || estadoActa == ABIERTA || estadoActa == PENDIENTE ){
+            if( estadoActa == CERRADA ){
+                estado = CERRADA;
+            }
+            else if( estadoActa == ABIERTA ){
+                estado = ABIERTA;
+            }
+            else if( estadoActa == PENDIENTE ){
+                estado = PENDIENTE;
+            }
+            break;
+        }
+        else{
+            std::cout << "Numero invalido, por favor ingresalo nuevamente" << std::endl;
+        }
+    }
     actas.push_back( Acta( codigo, fecha, estado, autor, director, coDirector, enfasis, jurados, criterios ) );
 }
 
