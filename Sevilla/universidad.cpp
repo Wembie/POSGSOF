@@ -86,7 +86,7 @@ Criterio Universidad::crearCriterio( int i ){
     std::cin >> ponderacion;
     std::cout << "Digita la observacoin del criterio " << i << ":" << std::endl;
     std::cin >> observacion;
-    return Criterio( tema, calificacion, ponderacion / 100, observacion );
+    return Criterio( tema, calificacion, ponderacion, observacion );
 }
 
 void Universidad::crearActa( int codigo ){
@@ -105,7 +105,8 @@ void Universidad::crearActa( int codigo ){
     Estado estado;
     Estudiante autor;
     Profesor director;
-    auto coDirector;
+    Profesor coDirector;
+    int coDirectorActa;
     std::string enfasis;
     list<Profesor> jurados;
     list<Criterio> criterios;
@@ -151,7 +152,7 @@ void Universidad::crearActa( int codigo ){
         std::cin >> id;
         for( list<Estudiante>::iterator estudiante = estudiantes.begin(); estudiante != estudiantes.end(); estudiante++ ){
             if( estudiante->getId() == id ){
-                autor = estudiante;
+                autor = *estudiante;
                 encontro = 1;
                 break;
             }
@@ -169,7 +170,7 @@ void Universidad::crearActa( int codigo ){
         std::cin >> id;
         for( list<Profesor>::iterator profesor = profesores.begin(); profesor != profesores.end(); profesor++ ){
             if( profesor->getId() == id ){
-                director = profesor;
+                director = *profesor;
                 encontro = 1;
                 break;
             }
@@ -192,7 +193,7 @@ void Universidad::crearActa( int codigo ){
                 std::cin >> id;
                 for( list<Profesor>::iterator profesor = profesores.begin(); profesor != profesores.end(); profesor++ ){
                     if( profesor->getId() == id ){
-                        coDirector = profesor;
+                        coDirector = *profesor;
                         encontro = 1;
                         break;
                     }
@@ -207,7 +208,7 @@ void Universidad::crearActa( int codigo ){
             break;
         }
         else if( existeCoDirector == 0 ){
-            coDirector = "N/A";
+            coDirectorActa = 1;
             break;
         }
         else{
@@ -224,7 +225,7 @@ void Universidad::crearActa( int codigo ){
             std::cin >> id;
             for( list<Profesor>::iterator profesor = profesores.begin(); profesor != profesores.end(); profesor++ ){
                 if( profesor->getId() == id ){
-                    jurados.push_back( profesor );
+                    jurados.push_back( *profesor );
                     encontro = 1;
                     break;
                 }
@@ -237,7 +238,7 @@ void Universidad::crearActa( int codigo ){
             }
         }
     }
-    int i, cuantosCriterosParaAgregar;
+    int cuantosCriterosParaAgregar;
     while( true ){
         std::cout << "Cuantos criterios deseas agregar al acta?: ";
         std::cin >> cuantosCriterosParaAgregar;
@@ -271,7 +272,13 @@ void Universidad::crearActa( int codigo ){
             std::cout << "Numero invalido, por favor ingresalo nuevamente" << std::endl;
         }
     }
-    actas.push_back( Acta( codigo, fecha, estado, autor, director, coDirector, enfasis, jurados, criterios ) );
+    if( coDirectorActa == 0){
+        actas.push_back( Acta( codigo, fecha, estado, autor, director, enfasis, jurados, criterios ) );
+    }
+    else if( coDirectorActa == 1 ){
+        actas.push_back( Acta( codigo, fecha, estado, autor, director, coDirector, enfasis, jurados, criterios ) );
+    }  
+   
 }
 
 void Universidad::mostrarTodasLasActas(){

@@ -5,6 +5,10 @@
 
 int main()
 {
+    int codigo = 4;
+    std::string codigoActa( std::to_string( codigo ) );
+    std::cout << codigoActa;
+    std::cout << type(codigo);
     auto t = std::time( nullptr );
     auto tm = *std::localtime( &t );
 
@@ -16,8 +20,4 @@ int main()
 
     enum Estado { CERRADO, ABIERTO, PENDIENTE };
     std::cout << CERRADO << std::endl;
-    int codigo;
-    codigo = 0;
-    std::string a(std::to_string(codigo));
-    std::cout << "Actas/" + a;
 }

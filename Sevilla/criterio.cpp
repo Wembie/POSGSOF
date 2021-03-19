@@ -12,5 +12,8 @@ Criterio::Criterio( std::string tema, float calificacion, float ponderacion, std
 }
 
 void Criterio::mostrarCriterio(){
-    
+    std::cout << "Tema: " << tema << std::endl;
+    std::cout << "Calificacion: " << calificacion << std::endl;
+    std::cout << "Ponderacion: " << ponderacion << "%" << std::endl;
+    std::cout << "Observacion: " << obsarvacion << std::endl;
 }

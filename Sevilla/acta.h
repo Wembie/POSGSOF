@@ -18,12 +18,14 @@ class Acta{
         Estado estado;
         Estudiante autor;
         Profesor director;
-        auto coDirector;
+        Profesor coDirector;
+        std::string coDirectorActa;
         std::string enfasis;
         list<Profesor> jurados;
         list<Criterio> criterios;
     public:
         Acta();
+        Acta( int, std::string, Estado, Estudiante, Profesor, std::string, list<Profesor>, list<Criterio> );
         Acta( int, std::string, Estado, Estudiante, Profesor, Profesor, std::string, list<Profesor>, list<Criterio> );
         void mostrarActa();
 };
