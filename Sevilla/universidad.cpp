@@ -412,6 +412,7 @@ void Universidad::eliminarActa(){
         for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
             if( acta->getEstado() != CERRADA && acta->getCodigo() == codigoActa ){
                 acta->~Acta();
+                actas.erase( acta );
                 std::cout << "Acta con codigo " << codigoActa << " Eliminada" << std::endl;
             }
             else{
