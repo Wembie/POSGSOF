@@ -29,6 +29,16 @@ class Acta{
         Acta( int, std::string, Estado, Estudiante, Profesor, std::string, std::string, list<Profesor>, list<Criterio> );
         Acta( int, std::string, Estado, Estudiante, Profesor, Profesor, std::string, std::string, list<Profesor>, list<Criterio> );
         void mostrarActa();
+        void setFechaHora( std::string );
+        void setEstado( Estado );
+        void setAutor( Estudiante );
+        void setDirector( Profesor );
+        void setCoDirector( Profesor );
+        void setEnfasis( std::string );
+        void setModalidad( std::string );
+        void setJurados( list<Profesor> );
+        void setCriterios( list<Criterio> );
+        Estado getEstado();
 };
 
 #endif

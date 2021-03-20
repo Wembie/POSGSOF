@@ -296,42 +296,76 @@ void Universidad::crearActa( int codigo ){
         }
     }
     //Agregacion de los jurados
-    int i, capacidadJurados = 2;
-    for( i = 0; i < capacidadJurados; i++){
-        while( true ){
-            int id, encontro = 0;
-            std::cout << "Para agregar el jurado " << i << " a la acta diga su id: ";
-            std::cin >> id;
-            for( list<Profesor>::iterator profesor = profesores.begin(); profesor != profesores.end(); profesor++ ){
-                if( profesor->getId() == id ){
-                    jurados.push_back( *profesor );
-                    encontro = 1;
-                    std::cout << "Jurado agregado exitosamente";
-                    break;
+    while( true ){
+        int decision;
+        std::cout << "JURADOS" << std::endl;
+        std::cout << "0. Agregar nuevo profesor\n1. Agregar existentes (2)\n2. Omitir";
+        std::cout << "Digita el numero deseado: ";
+        std::cin >> decision;
+        if( decision == 0 ){
+            std::cout << "\n";
+            crearProfesor();
+        }
+        else if( decision == 1 ){
+            int i, capacidadJurados = 2;
+            for( i = 0; i < capacidadJurados; i++){
+                while( true ){
+                    int id, encontro = 0;
+                    std::cout << "Para agregar el jurado " << i << " a la acta diga su id: ";
+                    std::cin >> id;
+                    for( list<Profesor>::iterator profesor = profesores.begin(); profesor != profesores.end(); profesor++ ){
+                        if( profesor->getId() == id ){
+                            jurados.push_back( *profesor );
+                            encontro = 1;
+                            std::cout << "Jurado agregado exitosamente";
+                            break;
+                        }
+                    }
+                    if( encontro == 0 ){
+                        std::cout << "Id invalido" << std::endl;
+                    }
+                    else if( encontro == 1){
+                        break;
+                    }
                 }
             }
-            if( encontro == 0 ){
-                std::cout << "Id invalido" << std::endl;
-            }
-            else if( encontro == 1){
-                break;
-            }
         }
-    }
-    //Agregacion de los criterios
-    int cuantosCriterosParaAgregar;
-    while( true ){
-        std::cout << "Cuantos criterios deseas agregar al acta?: ";
-        std::cin >> cuantosCriterosParaAgregar;
-        if( cuantosCriterosParaAgregar > 0 ){
+        else if( decision == 2 ){
             break;
         }
         else{
-            std::cout << "La cantidad de criterios debe ser mayor a 0" << std::endl;
+            std::cout << "\nNumero invalido, por favor ingresalo nuevamente" << std::endl;
         }
     }
-    for( i = 0; i < cuantosCriterosParaAgregar; i++){
-        criterios.push_back( crearCriterio( i ) );
+    //Agregacion de los criterios
+    while( true ){
+        int decision;
+        std::cout << "CRITERIOS" << std::endl;
+        std::cout << "0. Agregar Criterios (2)\n1. Omitir";
+        std::cout << "Digita el numero deseado: ";
+        std::cin >> decision;
+        if( decision == 0 ){
+            int i, cuantosCriterosParaAgregar;
+            while( true ){
+                std::cout << "Cuantos criterios deseas agregar al acta?: ";
+                std::cin >> cuantosCriterosParaAgregar;
+                if( cuantosCriterosParaAgregar > 0 ){
+                    break;
+                }
+                else{
+                    std::cout << "La cantidad de criterios debe ser mayor a 0" << std::endl;
+                }
+            }
+            for( i = 0; i < cuantosCriterosParaAgregar; i++){
+                criterios.push_back( crearCriterio( i ) );
+            }
+        }
+        else if( decision == 1 ){
+            break;
+        }
+        else{
+            std::cout << "\nNumero invalido, por favor ingresalo nuevamente" << std::endl;
+        }
     }
     //Se pregunta el estado del acta
     int estadoActa;

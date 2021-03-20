@@ -38,7 +38,7 @@ int main(){
                 std::cout << "5" << std::endl;
                 break;
             case 6:
-                std::cout << "6" << std::endl;
+                javeriana.mostrarTodasLasActas();
                 break;
             default:
                 //std::cout << "Cambios guardados con exito" << std::endl;

@@ -58,14 +58,55 @@ void Acta::mostrarActa(){
     std::cout << "Enfasis:" << enfasis << std::endl;
     int i;
     i = 1;
-    for( list<Profesor>::iterator profesor = jurados.begin(); profesor != jurados.end(); profesor++ ){
+    for( list<Profesor>::iterator jurado = jurados.begin(); jurado != jurados.end(); jurado++ ){
         std::cout << "Jurado " << i << ":" << std::endl;
-        profesor->mostrarProfesor();
+        jurado->mostrarProfesor();
         i++;
     }
     i = 1;
     for( list<Criterio>::iterator criterio = criterios.begin(); criterio != criterios.end(); criterio++ ){
+        std::cout << i << std::endl;
         criterio->mostrarCriterio();
         i++;
     }
+}
+
+void Acta::setFechaHora( std::string fechaHora ){
+    this->fechaHora = fechaHora;
+}
+
+void Acta::setEstado( Estado estado ){
+    this->estado = estado;
+}
+
+void Acta::setAutor( Estudiante autor ){
+    this->autor = autor;
+}
+
+void Acta::setDirector( Profesor director){
+    this->director = director;
+}
+
+void Acta::setCoDirector( Profesor coDirector ){
+    this->coDirector = coDirector;
+}
+
+void Acta::setEnfasis( std::string enfasis ){
+    this->enfasis = enfasis;
+}
+
+void Acta::setModalidad( std::string modalidad ){
+    this->modalidad = modalidad;
+}
+
+void Acta::setJurados( list<Profesor> jurados ){
+    this->jurados = jurados;
+}
+
+void Acta::setCriterios( list<Criterio> criterios ){
+    this->criterios = criterios;
+}
+
+Estado Acta::getEstado(){
+    return this->estado;
 }
