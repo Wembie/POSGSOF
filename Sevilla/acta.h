@@ -35,6 +35,7 @@ class Acta{
         void setAutor( Estudiante );
         void setDirector( Profesor );
         void setCoDirector( Profesor );
+        void setCoDirectorActa( std::string );
         void setEnfasis( std::string );
         void setModalidad( std::string );
         void setJurados( list<Profesor> );

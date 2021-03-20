@@ -13,9 +13,8 @@ class Persona{
         Persona();
         Persona( int, std::string, std::string, int );
         void mostrarPersona();
+        void mostrarNombre();
         int getId();
 };
-
-//https://www.youtube.com/watch?v=y8Y13enIuUM
 
 #endif

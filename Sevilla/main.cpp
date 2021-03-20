@@ -15,10 +15,10 @@ int main(){
         mkdir( "Actas" );
         //cargar el codigo
     }
-    int opcion;
+    int opcionUniversidad;
     do{
-        opcion = menuUniversidad();
-        switch( opcion ){
+        opcionUniversidad = menuUniversidad();
+        switch( opcionUniversidad ){
             case 0:
                 std::cout << "Hasta pronto" << std::endl;
                 break;
@@ -26,25 +26,45 @@ int main(){
                 javeriana.crearActa( contadorActa );
                 break;
             case 2:
-                std::cout << "2" << std::endl;
+                while( true ){
+                    int idEditarActa, encontro = 0;
+                    std::cout << "Digita el id del acta a editar: ";
+                    std::cin >> idEditarActa;
+                    for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+                        if( acta->getCodigo() == idEditarActa ){
+                            javeriana.editarActa( *acta );
+                            encontro = 1;
+                            break;
+                        }
+                    }
+                    if( encontro == 0 ){
+                        std::cout << "Id invalido" << std::endl;
+                    }
+                    else if( encontro == 1){
+                        break;
+                    }
+                }
                 break;
             case 3:
-                std::cout << "3" << std::endl;
+                javeriana.crearProfesor();
                 break;
             case 4:
-                std::cout << "4" << std::endl;
+                javeriana.crearEstudiante();
                 break;
             case 5:
-                std::cout << "5" << std::endl;
+                javeriana.listarActas( menuListarActas() );
                 break;
             case 6:
-                javeriana.mostrarTodasLasActas();
+                javeriana.mostrarTodosLosProfesores();
+                break;
+            case 7:
+                javeriana.mostrarTodosLosEstudiantes();
                 break;
             default:
                 //std::cout << "Cambios guardados con exito" << std::endl;
                 std::cout << "Numero invalido, por favor ingresalo nuevamente" << std::endl;
                 break;
         }
-    }while( opcion != 0 );
+    }while( opcionUniversidad != 0 );
     return 0;
 }

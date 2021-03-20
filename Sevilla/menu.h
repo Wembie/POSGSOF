@@ -5,5 +5,6 @@
 
 int menuUniversidad();
 int menuActa();
+int menuListarActas();
 
 #endif

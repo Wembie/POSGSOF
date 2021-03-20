@@ -23,11 +23,12 @@ class Universidad{
         void crearEstudiante();
         Criterio crearCriterio( int );
         void crearActa( int );
-        void editarActa( int );
+        void editarActa( Acta );
+        void listarActas( int );
         void eliminarActa();
-        void mostrarTodasLasActas();
+        //void mostrarTodasLasActas();
         void mostrarTodosLosProfesores();
-        void mostrarTodosLosEstudiante();
+        void mostrarTodosLosEstudiantes();
 };
 
 #endif

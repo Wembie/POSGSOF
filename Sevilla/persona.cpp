@@ -18,6 +18,10 @@ void Persona::mostrarPersona(){
     std::cout << "Celular: " << this->celular << std::endl;
 }
 
+void Persona::mostrarNombre(){
+    std::cout << this->nombre << std::endl;
+}
+
 int Persona::getId(){
     return this->id;
 }

@@ -49,22 +49,22 @@ void Acta::mostrarActa(){
         std::cout << "Pendiente" << std::endl;
     }
     std::cout << "Autor:" << std::endl;
-    autor.mostrarEstudiante();
+    autor.mostrarNombre();
     std::cout << "Director:" << std::endl;
-    director.mostrarProfesor();
+    director.mostrarNombre();
     std::cout << "Co-Director:" << std::endl;
     if( coDirectorActa == "N/A" ){
         std::cout << "No existe" << std::endl;
     }
     else{
-        coDirector.mostrarProfesor();
+        coDirector.mostrarNombre();
     }
     std::cout << "Enfasis:" << enfasis << std::endl;
     int i;
     i = 1;
     for( list<Profesor>::iterator jurado = jurados.begin(); jurado != jurados.end(); jurado++ ){
         std::cout << "Jurado " << i << ":" << std::endl;
-        jurado->mostrarProfesor();
+        jurado->mostrarNombre();
         i++;
     }
     i = 1;
@@ -89,6 +89,10 @@ void Acta::setAutor( Estudiante autor ){
 
 void Acta::setDirector( Profesor director){
     this->director = director;
+}
+
+void Acta::setCoDirectorActa( std::string coDirectorActa ){
+    this->coDirectorActa = coDirectorActa;
 }
 
 void Acta::setCoDirector( Profesor coDirector ){
