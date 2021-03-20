@@ -24,6 +24,7 @@ class Universidad{
         Criterio crearCriterio( int );
         void crearActa( int );
         void editarActa( int );
+        void eliminarActa();
         void mostrarTodasLasActas();
         void mostrarTodosLosProfesores();
         void mostrarTodosLosEstudiante();

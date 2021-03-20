@@ -31,6 +31,10 @@ Acta::Acta( int codigo, std::string fechaHora, Estado estado, Estudiante autor, 
     this->criterios = criterios;
 }
 
+Acta::~Acta(){
+
+}
+
 void Acta::mostrarActa(){
     std::cout << "Codigo Acta: " << codigo << std::endl;
     std::cout << fechaHora << std::endl;
@@ -109,4 +113,8 @@ void Acta::setCriterios( list<Criterio> criterios ){
 
 Estado Acta::getEstado(){
     return this->estado;
+}
+
+int Acta::getCodigo(){
+    return this->codigo;
 }

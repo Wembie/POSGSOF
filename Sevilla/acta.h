@@ -28,6 +28,7 @@ class Acta{
         Acta();
         Acta( int, std::string, Estado, Estudiante, Profesor, std::string, std::string, list<Profesor>, list<Criterio> );
         Acta( int, std::string, Estado, Estudiante, Profesor, Profesor, std::string, std::string, list<Profesor>, list<Criterio> );
+        ~Acta();
         void mostrarActa();
         void setFechaHora( std::string );
         void setEstado( Estado );
@@ -39,6 +40,7 @@ class Acta{
         void setJurados( list<Profesor> );
         void setCriterios( list<Criterio> );
         Estado getEstado();
+        int getCodigo();
 };
 
 #endif

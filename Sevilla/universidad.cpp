@@ -398,6 +398,33 @@ void Universidad::crearActa( int codigo ){
    
 }
 
+//Metodo para editar un acta
+void Universidad::editarActa( int codigo ){
+
+}
+
+//Metodo para eliminar un acta
+void Universidad::eliminarActa(){
+    int codigoActa;
+    std::cout << "Digita el codigo del acta a eliminar: ";
+    std::cin >> codigoActa;
+    if( actas.size() != 0 ){
+        for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+            if( acta->getEstado() != CERRADA && acta->getCodigo() == codigoActa ){
+                acta->~Acta();
+                std::cout << "Acta con codigo " << codigoActa << " Eliminada" << std::endl;
+            }
+            else{
+                std::cout << "Acta con codigo " << codigoActa << " No puede ser Eliminada" << std::endl;
+                std::cout << "Ya que esta cerrada" << std::endl;
+            }
+        }
+    }
+    else{
+        std::cout << "\nNo hay ninguna acta registrada por el momento." << std::endl;
+    }
+}
+
 //Metodo para mostrar todas las actas
 void Universidad::mostrarTodasLasActas(){
     if( actas.size() != 0 ){
@@ -406,7 +433,7 @@ void Universidad::mostrarTodasLasActas(){
         }
     }
     else{
-        std::cout << "No hay ninguna acta registrada por el momento." << std::endl;
+        std::cout << "\nNo hay ninguna acta registrada por el momento." << std::endl;
     }
     
 }
@@ -419,7 +446,7 @@ void Universidad::mostrarTodosLosProfesores(){
         }
     }
     else{
-        std::cout << "No hay ningun profesor registrado por el momento." << std::endl;
+        std::cout << "\nNo hay ningun profesor registrado por el momento." << std::endl;
     }
 }
 
@@ -431,6 +458,6 @@ void Universidad::mostrarTodosLosEstudiante(){
         }
 }
     else{
-        std::cout << "No hay ninguna estudiante registrado por el momento." << std::endl;
+        std::cout << "\nNo hay ninguna estudiante registrado por el momento." << std::endl;
     }
 }
