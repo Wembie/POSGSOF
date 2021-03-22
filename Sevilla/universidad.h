@@ -23,7 +23,7 @@ class Universidad{
         void crearEstudiante();
         Criterio crearCriterio( int );
         void crearActa( int );
-        void editarActa( Acta );
+        void editarActa();
         void listarActas( int );
         void eliminarActa();
         void actasDeUnProfesor();

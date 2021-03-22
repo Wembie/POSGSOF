@@ -8,7 +8,8 @@ int menuUniversidad(){
     std::cout << "2. Listar\n" << std::endl;
 
     std::cout << "3. Editar acta" << std::endl;
-    std::cout << "4. Calcular calificacion\n" << std::endl;
+    std::cout << "4. Calcular calificacion" << std::endl;
+    std::cout << "5. Eliminar acta\n" << std::endl;
 
     std::cout << "666. Cargar acta, profesores y estudiantes por defecto\n" << std::endl;
 

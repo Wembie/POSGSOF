@@ -12,7 +12,12 @@ Profesor::Profesor( int id, std::string nombre, std::string email, std::string c
 void Profesor::mostrarProfesor(){
     this->mostrarPersona();
     std::cout << "Cargo: " << this->cargo << std::endl;
-    std::cout << "Tipo: " << this->tipo<< std::endl;
+    if( this->tipo == INTERNO ){
+        std::cout << "Tipo: Interno" << std::endl;
+    }
+    else{
+        std::cout << "Tipo: Externo" << std::endl;
+    }
 }
 
 Tipo Profesor::getTipo(){

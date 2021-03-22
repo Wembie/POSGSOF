@@ -74,13 +74,13 @@ void Acta::mostrarActa(){
         }
     }
     i = 1;
-    std::cout << "Criterios: \n\n";
+    std::cout << "Criterios: \n";
     if( criterios.empty() ){
         std::cout << "No hay criterios" << std::endl;
     }
     else{
         for( list<Criterio>::iterator criterio = criterios.begin(); criterio != criterios.end(); criterio++ ){
-            std::cout << "Criterio " << i << std::endl << std::endl;
+            std::cout << "\nCriterio " << i << std::endl << std::endl;
             criterio->mostrarCriterio();
             i++;
         }
@@ -152,20 +152,22 @@ std::string Acta::getModalidad(){
 }
 
 float Acta::notaFinal(){
-  float calificacion, ponderacionTotal;
-  for( list<Criterio>::iterator criterio = criterios.begin(); criterio != criterios.end(); criterio++ ){
-      ponderacionTotal += criterio->getPonderacion();
-  }
-  if(ponderacionTotal == 1){
-      for( list<Criterio>::iterator criterio = criterios.begin(); criterio != criterios.end(); criterio++ ){
-          if(criterio->getCalificacion() > 0 && criterio->getCalificacion() < 5){
-          calificacion += criterio->getCalificacion()*criterio->getPonderacion();
-      }else{
-        return -1;
-      }
+    float calificacion, ponderacionTotal;
+    for( list<Criterio>::iterator criterio = criterios.begin(); criterio != criterios.end(); criterio++ ){
+        ponderacionTotal += criterio->getPonderacion();
     }
-    return calificacion;
-  }else{
-    return -1;
-  }
+    if( ponderacionTotal == 1 ){
+        for( list<Criterio>::iterator criterio = criterios.begin(); criterio != criterios.end(); criterio++ ){
+            if( criterio->getCalificacion() > 0 && criterio->getCalificacion() < 5 ){
+                calificacion += criterio->getCalificacion()*criterio->getPonderacion();
+            }
+            else{
+                return -1;
+            }
+        }
+        return calificacion;
+    }  
+    else{
+        return -1;
+    }
 }
