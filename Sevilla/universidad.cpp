@@ -897,6 +897,7 @@ void Universidad::editarActa(){
                                                 std::cin >> observaciones;
                                                 observaciones.append( ", " );
                                                 observaciones.append( criterio->getObservacion() );
+                                                //std::cout << std::endl << observaciones << std::endl;
                                                 criterio->setObservacion( observaciones );
                                             }
                                             i++;
