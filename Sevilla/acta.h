@@ -9,13 +9,16 @@
 
 using std::list;
 
-enum Estado{ CERRADA, ABIERTA, PENDIENTE, RECHAZADA };
+enum Estado{ CERRADA, ABIERTA };
+
+enum EstadoActaCerrada{ APROBADA, RECHAZADA, PENDIENTE };
 
 class Acta{
     private:
         int codigo;
         std::string fechaHora;
         Estado estado;
+        EstadoActaCerrada estadoActaCerrada;
         Estudiante autor;
         Profesor director;
         Profesor coDirector;
@@ -26,12 +29,12 @@ class Acta{
         list<Criterio> criterios;
     public:
         Acta();
-        Acta( int, std::string, Estado, Estudiante, Profesor, std::string, std::string, list<Profesor>, list<Criterio> );
-        Acta( int, std::string, Estado, Estudiante, Profesor, Profesor, std::string, std::string, list<Profesor>, list<Criterio> );
-        ~Acta();
+        Acta( int, std::string, Estado, EstadoActaCerrada, Estudiante, Profesor, std::string, std::string, list<Profesor>, list<Criterio> );
+        Acta( int, std::string, Estado, EstadoActaCerrada, Estudiante, Profesor, Profesor, std::string, std::string, list<Profesor>, list<Criterio> );
         void mostrarActa();
         void setFechaHora( std::string );
         void setEstado( Estado );
+        void setEstadoActaCerrada( EstadoActaCerrada );
         void setAutor( Estudiante );
         void setDirector( Profesor );
         void setCoDirector( Profesor );
@@ -41,6 +44,7 @@ class Acta{
         void setJurados( list<Profesor> );
         void setCriterios( list<Criterio> );
         Estado getEstado();
+        EstadoActaCerrada getEstadoActaCerrada();
         int getCodigo();
         Profesor getDirector();
         Profesor getCoDirector();

@@ -55,9 +55,8 @@ void Universidad::crearProfesor(){
             std::cout << "\nNumero invalido, por favor ingresalo nuevamente" << std::endl;
         }
     }
-    std::cout << "\n";
     profesores.push_back( Profesor( id, nombre, email, celular, cargo, tipo ) );
-    std::cout << "\nProfesor agregado exitosamente\n" << std::endl;
+    std::cout << "\nProfesor agregado exitosamente" << std::endl;
 }
 
 //Metodo para crear un estudiante
@@ -103,6 +102,7 @@ void Universidad::crearEstudiante(){
     }
 
     estudiantes.push_back( Estudiante( id, nombre, email, celular, carrera, semestre ) );
+    std::cout << "\nEstudiante agregado exitosamente" << std::endl;
 }
 
 //Metodo que retorna un criterio
@@ -468,32 +468,29 @@ void Universidad::crearActa( int codigo ){
         }
     }
     //Se pregunta el estado del acta
-    int estadoActa;
+    /*int estadoActa;
     while( true ){
-        std::cout << "Digita el estado del acta [ CERRADA = 0, ABIERTA = 1, PENDIENTE = 2 ]: ";
+        std::cout << "Digita el estado del acta [ CERRADA = 0, ABIERTA = 1 ]: ";
         std::cin >> estadoActa;
-        if( estadoActa == CERRADA || estadoActa == ABIERTA || estadoActa == PENDIENTE ){
+        if( estadoActa == CERRADA || estadoActa == ABIERTA ){
             if( estadoActa == CERRADA ){
                 estado = CERRADA;
             }
             else if( estadoActa == ABIERTA ){
                 estado = ABIERTA;
             }
-            else if( estadoActa == PENDIENTE ){
-                estado = PENDIENTE;
-            }
             break;
         }
         else{
             std::cout << "Numero invalido, por favor ingresalo nuevamente" << std::endl;
         }
-    }
+    }*/
     //Verificacion si hay un codirector o no
     if( coDirectorActa == 0 ){
-        actas.push_back( Acta( codigo, fecha, estado, autor, director, enfasis, modalidad, jurados, criterios ) );
+        actas.push_back( Acta( codigo, fecha, ABIERTA, PENDIENTE, autor, director, enfasis, modalidad, jurados, criterios ) );
     }
     else if( coDirectorActa == 1 ){
-        actas.push_back( Acta( codigo, fecha, estado, autor, director, coDirector, enfasis, modalidad, jurados, criterios ) );
+        actas.push_back( Acta( codigo, fecha, ABIERTA, PENDIENTE, autor, director, coDirector, enfasis, modalidad, jurados, criterios ) );
     }
     std::cout << "\nActa creada correctamente" << std::endl;
 }
@@ -514,7 +511,7 @@ void Universidad::editarActa(){
                         Profesor coDirectorEditar = acta->getCoDirector();
                         list<Profesor> juradosEditar = acta->getJurados();
                         int idDirector = directorEditar.getId(), idCoDirector = coDirectorEditar.getId(), idJurado1, idJurado2, i = 0;
-                        for( list<Profesor>::iterator profesor = profesores.begin(); profesor != profesores.end(); profesor++ ){
+                        for( list<Profesor>::iterator profesor = juradosEditar.begin(); profesor != juradosEditar.end(); profesor++ ){
                             if( i == 0 ){
                                 idJurado1 = profesor->getId();
                             }
@@ -524,6 +521,7 @@ void Universidad::editarActa(){
                             i++;
                         }
                         do{ 
+                            std::cout << idDirector << idCoDirector << idJurado1 << idJurado2;
                             opcionActa = menuActa();
                             switch( opcionActa ){
                                 case 0:{
@@ -544,15 +542,12 @@ void Universidad::editarActa(){
                                     while( true ){
                                         std::cout << "Digita el estado del acta a editar [ CERRADA = 0, ABIERTA = 1, PENDIENTE = 2 ]: ";
                                         std::cin >> estadoActa;
-                                        if( estadoActa == CERRADA || estadoActa == ABIERTA || estadoActa == PENDIENTE ){
+                                        if( estadoActa == CERRADA || estadoActa == ABIERTA ){
                                             if( estadoActa == CERRADA ){
                                                 acta->setEstado( CERRADA );
                                             }
                                             else if( estadoActa == ABIERTA ){
                                                 acta->setEstado( ABIERTA );
-                                            }
-                                            else if( estadoActa == PENDIENTE ){
-                                                acta->setEstado( PENDIENTE );
                                             }
                                             break;
                                         }
@@ -1121,6 +1116,12 @@ void Universidad::calcularCalificacion( int codigoActa ){
         if( acta->getCodigo() == codigoActa ){
             encontrada = 1;
             calificacion = acta->notaFinal();
+            if( calificacion <= 3.5 ){
+                acta->setEstadoActaCerrada( RECHAZADA );
+            }
+            else{
+                acta->setEstadoActaCerrada( APROBADA );
+            }
         }
     }
     if( encontrada == 0 ){
@@ -1134,10 +1135,12 @@ void Universidad::calcularCalificacion( int codigoActa ){
     std::cout << "\nLa calificacion ponderada del acta con el id " << codigoActa << " es " << calificacion << std::endl;
 }
 
+//tomar actas
 list<Acta> Universidad::getActas(){
   return this->actas;
 }
 
+//Hacks
 void Universidad::elDiablo(){
     estudiantes.push_back( Estudiante( 1, "Juan Esteban Acosta Lopez", "wembie@javerianacali.edu.co", "3148771423", "Ingenieria de Sistemas y Computacion", 3) );
     estudiantes.push_back( Estudiante( 2, "Sebastian Tobar Quintero", "sebastianq@javerianacali.edu.co", "3152784840", "Ingenieria de Sistemas y Computacion", 3) );
@@ -1152,5 +1155,5 @@ void Universidad::elDiablo(){
     std::ostringstream oss;
     oss << std::put_time( &tm, "Fecha: %d-%m-%Y\nHora: %H:%M:%S" );
     auto fecha = oss.str();
-    actas.push_back( Acta( 1, fecha, ABIERTA, Estudiante( 1, "Juan Esteban Acosta Lopez", "wembie@javerianacali.edu.co", "3148771423", "Ingenieria de Sistemas y Computacion", 3), Profesor( 1, "Luisa Guachene", "luisaguachene@javerianacali.edu.co", "3146875478", "Profe de POO", INTERNO ),  Profesor( 2, "Gonzalo NoreNa", "gozocongonzo@javerianacali.edu.co", "3176175172", "Esposo de Guachene", INTERNO ), "Sistemas Operativos", "Aplicado", jurados, criterios ) );
+    actas.push_back( Acta( 1, fecha, ABIERTA, PENDIENTE, Estudiante( 1, "Juan Esteban Acosta Lopez", "wembie@javerianacali.edu.co", "3148771423", "Ingenieria de Sistemas y Computacion", 3), Profesor( 1, "Luisa Guachene", "luisaguachene@javerianacali.edu.co", "3146875478", "Profe de POO", INTERNO ),  Profesor( 2, "Gonzalo NoreNa", "gozocongonzo@javerianacali.edu.co", "3176175172", "Esposo de Guachene", INTERNO ), "Sistemas Operativos", "Aplicado", jurados, criterios ) );
 }
