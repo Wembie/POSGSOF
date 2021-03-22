@@ -8,13 +8,14 @@ class Persona{
         int id;
         std::string nombre;
         std::string email;
-        int celular;
+        std::string celular;
     public:
         Persona();
-        Persona( int, std::string, std::string, int );
+        Persona( int, std::string, std::string, std::string );
         void mostrarPersona();
         void mostrarNombre();
         int getId();
+        void setId( int );
 };
 
 #endif

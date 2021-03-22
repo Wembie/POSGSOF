@@ -26,9 +26,15 @@ class Universidad{
         void editarActa( Acta );
         void listarActas( int );
         void eliminarActa();
-        //void mostrarTodasLasActas();
+        void actasDeUnProfesor();
+        void mostrarActasAplicadas();
+        void mostrarActasInvestigativas();
         void mostrarTodosLosProfesores();
         void mostrarTodosLosEstudiantes();
+        void calcularCalificacion( int );
+        list<Acta> getActas();
+        void elDiablo();
+
 };
 
 #endif

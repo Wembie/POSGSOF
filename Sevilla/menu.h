@@ -4,7 +4,9 @@
 #define MENU_H
 
 int menuUniversidad();
-int menuActa();
+int menuCrear();
+int menuListar();
 int menuListarActas();
+int menuActa();
 
 #endif

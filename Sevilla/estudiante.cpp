@@ -1,10 +1,10 @@
 #include "estudiante.h"
 
 Estudiante::Estudiante(){
-    
+
 }
 
-Estudiante::Estudiante( int id, std::string nombre, std::string email, int celular, std::string carrera, int semestre ) : Persona( id, nombre, email, celular ){
+Estudiante::Estudiante( int id, std::string nombre, std::string email, std::string celular, std::string carrera, int semestre ) : Persona( id, nombre, email, celular ){
     this->carrera = carrera;
     this->semestre = semestre;
 }

@@ -8,11 +8,13 @@ class Criterio{
         std::string tema;
         float calificacion;
         float ponderacion;
-        std::string obsarvacion;
+        std::string observacion;
     public:
         Criterio();
         Criterio( std::string, float, float, std::string );
         void mostrarCriterio();
+        float getCalificacion();
+        float getPonderacion();
 };
 
 #endif

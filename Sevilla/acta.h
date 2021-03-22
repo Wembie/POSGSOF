@@ -9,7 +9,7 @@
 
 using std::list;
 
-enum Estado{ CERRADA, ABIERTA, PENDIENTE };
+enum Estado{ CERRADA, ABIERTA, PENDIENTE, RECHAZADA };
 
 class Acta{
     private:
@@ -42,6 +42,11 @@ class Acta{
         void setCriterios( list<Criterio> );
         Estado getEstado();
         int getCodigo();
+        Profesor getDirector();
+        Profesor getCoDirector();
+        list<Profesor> getJurados();
+        std::string getModalidad();
+        float notaFinal();
 };
 
 #endif

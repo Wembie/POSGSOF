@@ -12,7 +12,7 @@ class Profesor : public Persona{
         Tipo tipo;
     public:
         Profesor();
-        Profesor( int, std::string, std::string, int, std::string, Tipo );
+        Profesor( int, std::string, std::string, std::string, std::string, Tipo );
         void mostrarProfesor();
         Tipo getTipo();
 };

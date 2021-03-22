@@ -10,7 +10,7 @@ class Estudiante : public Persona{
         int semestre;
     public:
         Estudiante();
-        Estudiante( int, std::string, std::string, int, std::string, int );
+        Estudiante( int, std::string, std::string, std::string, std::string, int );
         void mostrarEstudiante();
 };
 
