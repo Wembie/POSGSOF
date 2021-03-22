@@ -29,3 +29,7 @@ int Persona::getId(){
 void Persona::setId( int id ){
     this->id = id;
 }
+
+std::string Persona::getNombre(){
+    return this->nombre;
+}

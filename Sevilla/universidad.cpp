@@ -130,13 +130,13 @@ Criterio Universidad::crearCriterio( int i ){
 
 //Metodo de crear una acta
 void Universidad::crearActa( int codigo ){
-    std::ofstream archivo;
+    /*std::ofstream archivo;
     std::string codigoActa( std::to_string( codigo ) );
     archivo.open( "Actas/" + codigoActa, std::ios::out );
     if( archivo.fail() ){
         std::cout << "Nose pudo abrir el archivo";
         exit( 1 );
-    }
+    }*/
     //Fecha
     auto t = std::time( nullptr );
     auto tm = *std::localtime( &t );
@@ -504,7 +504,7 @@ void Universidad::editarActa(){
             std::cin >> idEditarActa;
             if( idEditarActa != 0 ){
                 for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
-                    if( acta->getCodigo() == idEditarActa ){
+                    if( acta->getCodigo() == idEditarActa && acta->getEstado() == ABIERTA ){
                         int opcionActa;
                         int coDirectorActa;
                         Profesor directorEditar = acta->getDirector();
@@ -521,7 +521,7 @@ void Universidad::editarActa(){
                             i++;
                         }
                         do{ 
-                            std::cout << idDirector << idCoDirector << idJurado1 << idJurado2;
+                            acta->mostrarActa();
                             opcionActa = menuActa();
                             switch( opcionActa ){
                                 case 0:{
@@ -552,7 +552,7 @@ void Universidad::editarActa(){
                                             break;
                                         }
                                         else{
-                                            std::cout << "Numero invalido, por favor ingresalo nuevamente" << std::endl;
+                                            std::cout << "\nNumero invalido, por favor ingresalo nuevamente" << std::endl;
                                         }
                                     }
                                     std::cout << "\nEstado cambiado" << std::endl;
@@ -697,7 +697,7 @@ void Universidad::editarActa(){
                                                     break;
                                                 }
                                                 else{
-                                                    std::cout << "Numero invalido, por favor ingresalo nuevamente" << std::endl;
+                                                    std::cout << "\nNumero invalido, por favor ingresalo nuevamente" << std::endl;
                                                 }
                                             }
                                             break;
@@ -863,7 +863,7 @@ void Universidad::editarActa(){
                                                     break;
                                                 }
                                                 else{
-                                                    std::cout << "La cantidad de criterios debe ser mayor a 0" << std::endl;
+                                                    std::cout << "\nLa cantidad de criterios debe ser mayor a 0" << std::endl;
                                                 }
                                             }
                                             for( i = 0; i < cuantosCriterosParaAgregar; i++){
@@ -882,13 +882,41 @@ void Universidad::editarActa(){
                                     std::cout << "\nCriterios cambiados" << std::endl;
                                     break;
                                 }
+                                case 10:{//Agregar mas observaciones
+                                    std::string observaciones;
+                                    int i = 0, omitir;
+                                    if( acta->getCriterios().empty() ){
+                                        std::cout << "No hay criterios" << std::endl;
+                                    }
+                                    else{
+                                        for( list<Criterio>::iterator criterio = acta->getCriterios().begin(); criterio != acta->getCriterios().end(); criterio++ ){
+                                            std::cout << "Digita la opcion para el criterio " << i + 1 << " [ OMITIR = 0, AGREGAR = 1 ]: ";
+                                            std::cin >> omitir;
+                                            if( omitir != 0 ){
+                                                std::cout << "Digita la observacion adicional para el criterio " << i + 1 << " : ";
+                                                std::cin >> observaciones;
+                                                observaciones.append( ", " );
+                                                observaciones.append( criterio->getObservacion() );
+                                                criterio->setObservacion( observaciones );
+                                            }
+                                            i++;
+                                            if( i == acta->getCriterios().size() ){
+                                                break;
+                                            }
+                                        }
+                                    }              
+                                    break;
+                                }
                                 default:
-                                    std::cout << "Numero invalido, por favor ingresalo nuevamente" << std::endl;
+                                    std::cout << "\nNumero invalido, por favor ingresalo nuevamente" << std::endl;
                                     break;
                             }
                         }while( opcionActa != 0 );
                         encontro = 1;
                         break;
+                    }
+                    else{
+                        std::cout << "\nNo se puede editar una acta cerrada" << std::endl;
                     }
                 }
                 if( encontro == 0 ){
@@ -908,6 +936,7 @@ void Universidad::editarActa(){
     }
 }
 
+//listar actas varias
 void Universidad::listarActas( int opcion ){
     switch( opcion ){
         case 0:
@@ -941,7 +970,7 @@ void Universidad::listarActas( int opcion ){
             }
             break;
         }
-        case 3:{ //Ceraddas
+        case 3:{ //Cerradas
             int impresa = 0;
             if( actas.size() != 0 ){
                 for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
@@ -967,6 +996,9 @@ void Universidad::listarActas( int opcion ){
             break;
         case 6:
             mostrarActasInvestigativas();
+            break;
+        case 7:
+            actasDeUnProfesorJurado();
             break;
         default:
             std::cout << "\nLo siento, ingresa una opcion que sea valida\n" << std::endl;
@@ -1013,6 +1045,12 @@ void Universidad::eliminarActa(){
     }
 }
 
+//Cerrar acta
+void Universidad::cerrarActa(){
+
+}
+
+//Muestra las actas dirigidas por 1 profe
 void Universidad::actasDeUnProfesor(){
     int contadorActasDeProfesor = 0;
     int idProfesor;
@@ -1053,6 +1091,83 @@ void Universidad::actasDeUnProfesor(){
     }
 }
 
+//muuestra todas las actas el cual un profe sea jurado
+void Universidad::actasDeUnProfesorJurado(){
+    int contadorActasDeProfesorJurado = 0;
+    int idProfesor;
+    int encontro = 0;
+    Profesor profesorcito;
+    if( !actas.empty() ){
+        while( true ){
+            std::cout << "\nDigita el id del profesor a buscar [ CANCELAR = 0 ]: ";
+            std:: cin >> idProfesor;
+            if( idProfesor == 0 ){
+                return;
+            }
+            for( list<Profesor>::iterator profesor = profesores.begin(); profesor != profesores.end(); profesor++ ){
+                if( profesor->getId() == idProfesor ){
+                    profesorcito = *profesor;
+                    encontro = 1;
+                    break;
+                }
+            }
+            if( encontro == 1 ){
+                break;
+            }
+            else{
+                std::cout << "\nId invalido\n" << std::endl;
+            }
+        }
+        for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+            if( !acta->getJurados().empty() ){
+                for( list<Profesor>::iterator profesor = acta->getJurados().begin(); profesor != acta->getJurados().end(); profesor++ ){
+                    if( profesorcito.getId() == profesor->getId() ){
+                        contadorActasDeProfesorJurado += 1;
+                        acta->mostrarActa();
+                    }
+                }
+            }
+        }
+        std::cout << "\nTotal de actas dirigidas por el profesor ";
+        profesorcito.mostrarNombre();
+        std::cout << "Encontradas:" << contadorActasDeProfesorJurado << std::endl;
+    }
+    else{
+        std::cout << "\nLista de actas vacias\n" << std::endl;
+    }
+}
+
+//Muestra todos los jurados sin repetir de todas las actas
+void Universidad::mostrarActasConJurado(){
+    list<Profesor> juradosParaMostrar;
+    if( !actas.empty() ){
+        for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+            if( !acta->getJurados().empty() ){
+                for( list<Profesor>::iterator profesor = acta->getJurados().begin(); profesor != acta->getJurados().end(); profesor++ ){
+                    if( !juradosParaMostrar.empty() ){
+                        for( list<Profesor>::iterator jurado = juradosParaMostrar.begin(); jurado != juradosParaMostrar.end(); profesor++ ){
+                            if( jurado->getId() != profesor->getId() ){
+                                juradosParaMostrar.push_back( *profesor );
+                            }
+                        }
+                    }
+                    else{
+                        juradosParaMostrar.push_back( *profesor );
+                    }
+                }
+            }
+        }
+        std::cout << "\nTotal de jurados encontrados: " << std::endl;
+        for( list<Profesor>::iterator jurado = juradosParaMostrar.begin(); jurado != juradosParaMostrar.end(); jurado++ ){
+            jurado->mostrarNombre();
+        }
+    }
+    else{
+        std::cout << "\nLista de actas vacias\n" << std::endl;
+    }
+}
+
+//mostrar actas aplicadas
 void Universidad::mostrarActasAplicadas(){
     int contadorActas = 0;
     if( !actas.empty() ){
@@ -1069,6 +1184,7 @@ void Universidad::mostrarActasAplicadas(){
     }
 }
 
+//mostrar actas investigativas
 void Universidad::mostrarActasInvestigativas(){
     int contadorActas = 0;
     if( !actas.empty() ){
@@ -1135,6 +1251,42 @@ void Universidad::calcularCalificacion( int codigoActa ){
     std::cout << "\nLa calificacion ponderada del acta con el id " << codigoActa << " es " << calificacion << std::endl;
 }
 
+//Exportarla
+void Universidad::exportarActa(){
+    if( !actas.empty() ){
+        while( true ){
+            int codigoActa, encontro = 0;
+            std::cout << "Digita el codigo del acta a exportar [ CANCELAR = 0 ]: ";
+            std::cin >> codigoActa;
+            if( codigoActa != 0 ){
+                for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+                    if( acta->getEstado() == CERRADA && acta->getCodigo() == codigoActa ){
+                        acta->exportar( codigoActa );
+                        encontro = 1;
+                        break;
+                    }
+                    else{
+                        std::cout << "\nActa con codigo " << codigoActa << " no puede ser exportada debido a que se encuentra abierta" << std::endl;
+                        encontro = 1;
+                    }
+                }
+                if( encontro == 0 ){
+                    std::cout << "\nNo hay ningun acta con ese id, intentalo de nuevo\n" << std::endl;
+                }
+                else if( encontro == 1){
+                    break;
+                }
+            }
+            else{
+                break;
+            }
+        }
+    }
+    else{
+        std::cout << "\nNo encontramos ninguna acta en nuestra base de datos" << std::endl;
+    }
+}
+
 //tomar actas
 list<Acta> Universidad::getActas(){
   return this->actas;
@@ -1148,8 +1300,8 @@ void Universidad::elDiablo(){
     profesores.push_back( Profesor( 2, "Gonzalo NoreNa", "gozocongonzo@javerianacali.edu.co", "3176175172", "Esposo de Guachene", INTERNO) );
     list<Profesor> jurados;
     list<Criterio> criterios;
-    criterios.push_back( Criterio( "Desarrollo y profundidad en el tratamiento del tema: ", 5.0, 20, "Se desarrollo apropiadamente el tema y con la profundidad suficiente para su culminacion" ) );
-    criterios.push_back( Criterio( "Desafio academico y cientifico del tema: ", 5.0, 15, "El trabajo estuvo bien soportado y con rigor cientifico" ) );
+    criterios.push_back( Criterio( "Desarrollo y profundidad en el tratamiento del tema: ", 5.0, 50, "Se desarrollo apropiadamente el tema y con la profundidad suficiente para su culminacion" ) );
+    criterios.push_back( Criterio( "Desafio academico y cientifico del tema: ", 3.0, 50, "El trabajo estuvo bien soportado y con rigor cientifico" ) );
     auto t = std::time( nullptr );
     auto tm = *std::localtime( &t );
     std::ostringstream oss;

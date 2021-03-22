@@ -9,7 +9,9 @@ int menuUniversidad(){
 
     std::cout << "3. Editar acta" << std::endl;
     std::cout << "4. Calcular calificacion" << std::endl;
-    std::cout << "5. Eliminar acta\n" << std::endl;
+    std::cout << "5. Eliminar acta" << std::endl;
+    std::cout << "6. Cerrar acta" << std::endl;
+    std::cout << "7. Exportar acta\n" << std::endl;
 
     std::cout << "666. Cargar acta, profesores y estudiantes por defecto\n" << std::endl;
 
@@ -53,6 +55,7 @@ int menuListarActas(){
     std::cout << "4. Listar actas dirigidas por profesor" << std::endl;
     std::cout << "5. Listar actas aplicadas" << std::endl;
     std::cout << "6. Listar actas investigativas" << std::endl;
+    std::cout << "7. Listar actas en la cual un profesor es jurado" << std::endl;
 
     std::cout << "0. Atras\n" << std::endl;
     std::cout << "Digita el numero: ";
@@ -72,6 +75,7 @@ int menuActa(){
     std::cout << "7. Cambiar Modalidad" << std::endl;
     std::cout << "8. Cambiar Jurados" << std::endl;
     std::cout << "9. Cambiar Criterios" << std::endl;
+    std::cout << "10. Agregar Observaciones" << std::endl;
     std::cout << "0. Atras\n" << std::endl;
     std::cout << "Digita el numero: ";
     std::cin >> opcion;

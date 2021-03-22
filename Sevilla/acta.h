@@ -1,5 +1,6 @@
 #include <iostream>
 #include <list>
+#include <fstream>
 #include "estudiante.h"
 #include "profesor.h"
 #include "criterio.h"
@@ -49,8 +50,10 @@ class Acta{
         Profesor getDirector();
         Profesor getCoDirector();
         list<Profesor> getJurados();
+        list<Criterio> getCriterios();
         std::string getModalidad();
         float notaFinal();
+        void exportar( int );
 };
 
 #endif

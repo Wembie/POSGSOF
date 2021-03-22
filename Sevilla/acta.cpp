@@ -159,6 +159,10 @@ list<Profesor> Acta::getJurados(){
     return this->jurados;
 }
 
+list<Criterio> Acta::getCriterios(){
+    return this->criterios;
+}
+
 std::string Acta::getModalidad(){
     return this->modalidad;
 }
@@ -170,7 +174,7 @@ float Acta::notaFinal(){
     }
     if( ponderacionTotal == 1 ){
         for( list<Criterio>::iterator criterio = criterios.begin(); criterio != criterios.end(); criterio++ ){
-            if( criterio->getCalificacion() > 0 && criterio->getCalificacion() < 5 ){
+            if( criterio->getCalificacion() >= 0 && criterio->getCalificacion() <= 5 ){
                 calificacion += criterio->getCalificacion()*criterio->getPonderacion();
             }
             else{
@@ -182,4 +186,40 @@ float Acta::notaFinal(){
     else{
         return -1;
     }
+}
+
+void Acta::exportar( int id ){
+    int juradoNo = 1;
+    std::ofstream file;
+    file.open("Actas/Acta " + std::to_string( id ) + ".txt");
+    file << "ACTA DE EVALUACION DE TRABAJO DE GRADO\n\n";
+    file << "Autor: " << autor.getNombre() << " ID: " << autor.getId();
+    file << "\n" << fechaHora;
+    file << "\nDirector: " << director.getNombre();
+    file << "\nCo-Director: " << coDirector.getNombre();
+    file << "\nEnfasis en: " << enfasis;
+    file << "\nModalidad: " << modalidad;
+    file << "\n\nJurados:\n";
+    if( !jurados.empty() ){
+        for( list<Profesor>::iterator jurado = jurados.begin(); jurado != jurados.end(); jurado++ ){
+            file << "\nJurado " << juradoNo << ": " << jurado->getNombre();
+        }
+    }else{
+        file << "\nN/A";
+    }
+    file << "\n\nEn atencion al desarrollo de este Trabajo de Grado y al documento y sustentacion que presento el(la) autor(a), los Jurados damos las siguientes calificaciones parciales y observaciones (los criterios a evaluar y sus ponderaciones se estipulan en el articulo 7.1 de las Directrices para Trabajo de Grado de Maestria):\n";
+    file << "\nCriterios:\n\n";
+    for( list<Criterio>::iterator criterio = criterios.begin(); criterio != criterios.end(); criterio++ ){
+        file << criterio->getTema();
+        file << "\nCalificacion parcial: " << criterio->getCalificacion();
+        file << "\nPonderacion: " << criterio->getPonderacion() << "%";
+        file << "\nObservaciones: " << criterio->getObservacion();
+    }
+    file << "\n\nComo resultado de estas calificaciones parciales y sus ponderaciones, la calificación del Trabajo de Grado es: " << notaFinal();
+    file << "\n\n__________\n";
+    file << "Firma del jurado 1\n\n";
+    file << "__________\n";
+    file << "Firma del jurado 2";
+    file.close();
+    std::cout << "\nActa con codigo " << id << " exportada" << std::endl;
 }

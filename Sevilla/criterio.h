@@ -15,6 +15,9 @@ class Criterio{
         void mostrarCriterio();
         float getCalificacion();
         float getPonderacion();
+        std::string getTema();
+        std::string getObservacion();
+        void setObservacion( std::string );
 };
 
 #endif

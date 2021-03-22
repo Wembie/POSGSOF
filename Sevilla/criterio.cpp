@@ -19,9 +19,21 @@ void Criterio::mostrarCriterio(){
 }
 
 float Criterio::getCalificacion(){
-  return calificacion;
+    return this->calificacion;
 }
 
 float Criterio::getPonderacion(){
-  return ponderacion/100;
+    return this->ponderacion/100;
+}
+
+std::string Criterio::getTema(){
+    return this->tema;
+}
+
+std::string Criterio::getObservacion(){
+    return this->observacion;
+}
+
+void Criterio::setObservacion( std::string observacion ){
+    this->observacion = observacion;
 }

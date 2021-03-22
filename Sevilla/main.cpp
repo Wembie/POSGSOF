@@ -76,6 +76,12 @@ int main(){
             case 5:
                 javeriana.eliminarActa();
                 break;
+            case 6:
+                javeriana.cerrarActa();
+                break;
+            case 7:
+                javeriana.exportarActa();
+                break;
             case 666:
                 javeriana.elDiablo();
                 break;

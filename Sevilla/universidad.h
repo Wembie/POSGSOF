@@ -1,8 +1,8 @@
 #include <iostream>
-#include <fstream>
 #include <iomanip>
 #include <ctime>
 #include <sstream>
+#include <string>
 #include "menu.h"
 #include "acta.h"
 #include "funciones.h"
@@ -26,12 +26,16 @@ class Universidad{
         void editarActa();
         void listarActas( int );
         void eliminarActa();
+        void cerrarActa();
         void actasDeUnProfesor();
+        void actasDeUnProfesorJurado();
+        void mostrarActasConJurado();
         void mostrarActasAplicadas();
         void mostrarActasInvestigativas();
         void mostrarTodosLosProfesores();
         void mostrarTodosLosEstudiantes();
         void calcularCalificacion( int );
+        void exportarActa();
         list<Acta> getActas();
         void elDiablo();
 

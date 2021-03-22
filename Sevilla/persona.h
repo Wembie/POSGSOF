@@ -16,6 +16,7 @@ class Persona{
         void mostrarNombre();
         int getId();
         void setId( int );
+        std::string getNombre();
 };
 
 #endif
