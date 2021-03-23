@@ -46,6 +46,7 @@ void Universidad::crearProfesor(){
         std::cin >> tipoProfe;
         if( tipoProfe == 0 || tipoProfe == 1 ){
             tipo = static_cast<Tipo>( tipoProfe );
+            break;
         }else{
             std::cout << "\nNumero invalido, por favor ingresalo nuevamente" << std::endl;
         }
@@ -1229,7 +1230,7 @@ void Universidad::actasDeUnProfesor(){
 
 //Muestra todas las actas el cual un profesorxito sea jurado
 void Universidad::actasDeUnProfesorJurado(){
-    int contadorActasDeProfesorJurado = 0;
+    /*int contadorActasDeProfesorJurado = 0;
     int idProfesor;
     int encontro = 0;
     Profesor profesorcito;
@@ -1301,12 +1302,63 @@ void Universidad::actasDeUnProfesorJurado(){
     }
     else{
         std::cout << "\nLista de actas vacias\n" << std::endl;
+    }*/
+    int idProfesor;
+    int encontro = 0, cuantasActas = 0;
+    Profesor profesorcito;
+    if( !actas.empty() ){
+        while( true ){
+            std::cout << "\nDigita el id del profesor a buscar [ CANCELAR = 0 ]: ";
+            std::cin >> idProfesor;
+            if( idProfesor == 0 ){
+                return;
+            }
+            else{
+                for( list<Profesor>::iterator profesor = profesores.begin(); profesor != profesores.end(); profesor++ ){
+                    if( profesor->getId() == idProfesor ){
+                        profesorcito = *profesor;
+                        encontro = 1;
+                        break;
+                    }
+                }
+                if( encontro == 1 ){
+                    for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+                        //No se por q entra en un ciclo infinito entonces lo solucionamos con la capacidad total de los jurados la cual es 2
+                        int capJurados = 0;
+                        if( !acta->getJurados().empty() ){
+                            for( list<Profesor>::iterator jurado = acta->getJurados().begin(); jurado != profesores.end(); jurado++ ){
+                                if( profesorcito.getId() == jurado->getId() ){
+                                    acta->mostrarActa();
+                                    cuantasActas++;
+                                }
+                                capJurados++;
+                                if( capJurados == 2 ){
+                                    break;
+                                }
+                            }
+                            if( cuantasActas == 0 ){
+                                std::cout << "\nNose ha encuentrado ninguna acta en el cual " << profesorcito.getNombre() << " sea jurado" << std::endl;
+                            }
+                        }
+                    }
+                    break;
+                }
+                else{
+                    std::cout << "\nId invalido\n" << std::endl;
+                }
+            }
+        }
     }
+    else{
+        std::cout << "\nLista de actas vacias\n" << std::endl;
+    }
+
 }
+
 
 //Muestra todos los jurados sin repetir de todas las actas
 void Universidad::mostrarActasConJurado(){
-    list<Profesor> juradosParaMostrar;
+    /*list<Profesor> juradosParaMostrar;
     if( !actas.empty() ){
         if( actas.size() > 1 ){
             for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
@@ -1368,6 +1420,79 @@ void Universidad::mostrarActasConJurado(){
             }else{
                 juradosParaMostrar.begin()->mostrarNombre();
             }
+        }
+    }
+    else{
+        std::cout << "\nLista de actas vacias\n" << std::endl;
+    }*/
+    list<int> iDJuradosAMostrar;
+    if( !actas.empty() ){
+        for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+            //No se por q entra en un ciclo infinito entonces lo solucionamos con la capacidad total de los jurados la cual es 2
+            int capJuradosActa = 0;
+            if( !acta->getJurados().empty() ){
+                for( list<Profesor>::iterator juradoActa = acta->getJurados().begin(); juradoActa != acta->getJurados().end(); juradoActa++ ){
+                    if( !iDJuradosAMostrar.empty() ){ 
+                        for( list<int>::iterator idJurado = iDJuradosAMostrar.begin(); idJurado != iDJuradosAMostrar.end(); idJurado++ ){               
+                            if( juradoActa->getId() != *idJurado ){
+                                iDJuradosAMostrar.push_back( juradoActa->getId() );
+
+                            }
+                        }
+                    }
+                    else{
+                        iDJuradosAMostrar.push_back( juradoActa->getId() );
+                    }
+                    capJuradosActa++;
+                    if( capJuradosActa == 2 ){
+                        break;
+                    }
+                    
+                }
+            }
+        }
+        
+        std::cout << "\nJurados encontrados: " << *iDJuradosAMostrar.begin() <<*iDJuradosAMostrar.end() << std::endl;
+        for( list<int>::iterator iDJurado = iDJuradosAMostrar.begin(); iDJurado != iDJuradosAMostrar.end(); iDJurado++ ){
+            for( list<Profesor>::iterator profesor = profesores.begin(); profesor != profesores.end(); profesor++ ){
+                if( profesor->getId() == *iDJurado ){
+                    profesor->mostrarNombre();
+                }
+            }
+        }
+    }
+    else{
+        std::cout << "\nLista de actas vacias\n" << std::endl;
+    }
+    std::cout << "\nOtra Forma\n";
+    list<Profesor> juradosAMostrar;
+    if( !actas.empty() ){
+        for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+            //No se por q entra en un ciclo infinito entonces lo solucionamos con la capacidad total de los jurados la cual es 2
+            //int capJuradosActa = 0;
+            if( !acta->getJurados().empty() ){
+                if( !juradosAMostrar.empty() ){ 
+                    for( list<Profesor>::iterator jurado = juradosAMostrar.begin(); jurado != juradosAMostrar.end(); jurado++ ){             
+                        if( acta->getJurados().begin()->getId() != jurado->getId() ){
+                            juradosAMostrar.push_back( *acta->getJurados().begin() ); 
+                        }
+                        else if( acta->getJurados().end()->getId() != jurado->getId() ){
+                            juradosAMostrar.push_back( *acta->getJurados().begin() ); 
+                        }
+                    }
+                }
+                else{
+                    juradosAMostrar.push_back( *acta->getJurados().begin() );
+                }
+                /*capJuradosActa++;
+                if( capJuradosActa == 2 ){
+                    break;
+                }*/
+            }
+        }  
+        std::cout << "\nJurados encontrados: " << std::endl;
+        for( list<Profesor>::iterator profesor = juradosAMostrar.begin(); profesor != juradosAMostrar.end(); profesor++ ){
+                profesor->mostrarNombre();
         }
     }
     else{
@@ -1521,4 +1646,36 @@ void Universidad::elDiablo(){
     oss << std::put_time( &tm, "Fecha: %d-%m-%Y\nHora: %H:%M:%S" );
     auto fecha = oss.str();
     actas.push_back( Acta( 1, fecha, ABIERTA, PENDIENTE, Estudiante( 1, "Juan Esteban Acosta Lopez", "wembie@javerianacali.edu.co", "3148771423", "Ingenieria de Sistemas y Computacion", 3), Profesor( 1, "Luisa Guachene", "luisaguachene@javerianacali.edu.co", "3146875478", "Profe de POO", INTERNO ),  Profesor( 2, "Gonzalo NoreNa", "gozocongonzo@javerianacali.edu.co", "3176175172", "Esposo de Guachene", INTERNO ), "Sistemas Operativos", "Aplicado", jurados, criterios ) );
+}
+
+void Universidad::sorpresa(){
+    std::cout << "------------------------- LUISA CON GONZO CASADOS :D --------------------------" << std::endl;
+    std::cout << "+++++++++++++++++::+:::::::::::::::::::::::*@@WWWWWWWWWWWWWWWW@@+--------------" << std::endl;
+    std::cout << "++++++++++++::::::::::::::::::::::::::::::#WWWWWWW@@@@@@@@@@WWW@@+---.........." << std::endl;
+    std::cout << "::++++++++++:::::::::+@@@WWWWWWWW@@+.....:@WWW@@#######======##@@@+--.........." << std::endl;
+    std::cout << ":::++++++++::::::::#@@@@WWWWWWWWWWWWW@+.*WWW@#==================#@@*---........" << std::endl;
+    std::cout << ":::::::::::::----=@@@@@@@@@@@@@WWWWWWWWWWW@@=*******==============@@=----------" << std::endl;
+    std::cout << "::::::::-------:#@@@@@@@@@@W@@@@@@@WWWWWW@@=******===============*=@@*---------" << std::endl;
+    std::cout << "+++++:+*......:##@#@@@@@@@#=======##@WWW@@#=*********=====*=#@@#==*=@#......-.-" << std::endl;
+    std::cout << ":::::::*:...-:##@@###@@=***********==#@W@@#***=#####==***=#@##==#===#=........." << std::endl;
+    std::cout << "::::::::+...:###@@###=**++**********=##@@@#=*****===*+=#####@@@#===+:*.....----" << std::endl;
+    std::cout << "::::::::+:..:=####*+:::*=*++++++***==##@W@#=*=*==#@##====##=####===*++---:::-::" << std::endl;
+    std::cout << ":::::::::+--:+**++++#=@#*+++:+++*===###@WW@===****=====**===###====**++--::::::" << std::endl;
+    std::cout << ":::::::::::-+*+++++*++*==*+++******=*=#@W@@=*****==**===*===*=#====**++----::::" << std::endl;
+    std::cout << ":::+++::::::+++:++++***+++++*====#@#@###**#=*++++**=*******======##===:....----" << std::endl;
+    std::cout << ":::++++::*:=#+:::::+++++*++**==****=##=*-+#**++++*=******====##=###===*.....--." << std::endl;
+    std::cout << "::++++++::*==+:::::++++++::+*==****==#*-.-***++++*=*******+*+***@##==**----...-" << std::endl;
+    std::cout << "++++++++:+*#+::::+++::+++++****+++*==*:....-*++++*=*@=++:::++*=#======+........" << std::endl;
+    std::cout << "+++++++++*##*+:::+++=*:::+******++*=*+----..-*++++****==========**===*........." << std::endl;
+    std::cout << "+++++++++=##@##+::::::+*====##=***=:--.......-**++*****+++***=======*+##@@@@##=" << std::endl;
+    std::cout << "+:--..--.:##@@W#+::::+++++**==*==*..:+::+=##WWW@=*************======::=W@#@@WWW" << std::endl;
+    std::cout << "****+::+.-:=@@W@#*+::::++***=#@##@@@@@@@WWW@W@WWWW@#=**********=##*:::+=WW@#@@@" << std::endl;
+    std::cout << "**====*:.-::*=@W@@=****++*#@WWWWWWWWWWWWWWWWWW@WWWWWWW@====###@@WWW@@*++*@WW@#@" << std::endl;
+    std::cout << "====###+-.-:+*=@W@@#==#@@@W@@@WWWWWWWWWWWWWWWW@WWWWWWWWW#+++#@WWWWWW@@#**=@WWW@" << std::endl;
+    std::cout << "======*+-..::**#@@@@@@@@@@@WW@@@@WWWWWWWWWWWWWWWWWWWWWWWWW=*=WW@@WW@WW@@=*=@WWW" << std::endl;
+    std::cout << "**====*+:-.--:++#@W@@@#@@@@@WW@@@@@@WWWWWWWWWWWWWWWWWWWWWWW@*=@@@@@@WWWW@===@@W" << std::endl;
+    std::cout << "*====##=*+:+-:+++#@W@@##@@@@@WW@@@@@@@WWWWWWWWWWWWWWWWWWWWWW@++#@@#@@WWW@@###@W" << std::endl;
+    std::cout << "@##@##@@@@@#@@==**@WW==@@@@@@@W@@@@@@@@WWWWWWWWWWWWWWWWWWWWWW@*=#@@@@WWWWW@@@@W" << std::endl;
+    std::cout << "\nhttps://www.facebook.com/photo?fbid=10202209451493052&set=a.1389655056726" << std::endl;
+    std::cout << "ARCHIVO = 'PARA LUISIS.txt' es un regalito para ti de parte de nosotros" << std::endl;
 }

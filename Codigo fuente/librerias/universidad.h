@@ -41,6 +41,7 @@ class Universidad{
         void consultarActas( EstadoActaCerrada );
         void consultarJurados( Tipo );
         void listarCriterios( int );
+        void sorpresa();
 };
 
 #endif

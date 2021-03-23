@@ -1,6 +1,6 @@
 all: compilar
 compilar: funciones menu criterio persona estudiante profesor acta universidad main
-		g++ -o ejecutable funciones.o menu.o criterio.o persona.o estudiante.o profesor.o acta.o universidad.o main.o
+		g++ -o PontificiaUniversidadJaverianaCali funciones.o menu.o criterio.o persona.o estudiante.o profesor.o acta.o universidad.o main.o
 funciones: archivos/funciones.cpp librerias/funciones.h
 		g++ -c archivos/funciones.cpp
 menu: archivos/menu.cpp librerias/menu.h

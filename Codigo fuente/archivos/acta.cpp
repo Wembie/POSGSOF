@@ -74,6 +74,7 @@ void Acta::mostrarActa(){
         std::cout << "No hay jurados" << std::endl;
     }
     else{
+        std::cout << "\n";
         for( list<Profesor>::iterator jurado = jurados.begin(); jurado != jurados.end(); jurado++ ){
             std::cout << "Jurado " << i << ":" << std::endl;
             jurado->mostrarNombre();

@@ -117,6 +117,8 @@ int main(){
                     javeriana.listarCriterios( codigo );
                     break;
                 }
+            case 69:
+                javeriana.sorpresa();
             case 666:
                 // Simplemente belfegor
                 javeriana.elDiablo();

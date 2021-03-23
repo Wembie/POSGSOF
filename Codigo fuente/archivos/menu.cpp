@@ -17,6 +17,8 @@ int menuUniversidad(){
     std::cout << "9. Consultar jurados internos/externos" << std::endl;
     std::cout << "10. Listar criterios de un acta\n" << std::endl;
 
+    std::cout << "69. Sorpresa\n" << std::endl;
+
     std::cout << "666. Cargar acta, profesores y estudiantes por defecto\n" << std::endl;
 
     std::cout << "0. Salir\n" << std::endl;
