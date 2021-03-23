@@ -38,7 +38,9 @@ class Universidad{
         void exportarActa();
         list<Acta> getActas();
         void elDiablo();
-
+        void consultarActas( EstadoActaCerrada );
+        void consultarJurados( Tipo );
+        void listarCriterios( int );
 };
 
 #endif

@@ -520,7 +520,7 @@ void Universidad::editarActa(){
                             }
                             i++;
                         }
-                        do{ 
+                        do{
                             acta->mostrarActa();
                             opcionActa = menuActa();
                             switch( opcionActa ){
@@ -905,7 +905,7 @@ void Universidad::editarActa(){
                                                 break;
                                             }
                                         }
-                                    }              
+                                    }
                                     break;
                                 }
                                 default:
@@ -1001,6 +1001,9 @@ void Universidad::listarActas( int opcion ){
         case 7:
             actasDeUnProfesorJurado();
             break;
+        case 8:
+            mostrarActasConJurado();
+            break;
         default:
             std::cout << "\nLo siento, ingresa una opcion que sea valida\n" << std::endl;
             break;
@@ -1048,7 +1051,129 @@ void Universidad::eliminarActa(){
 
 //Cerrar acta
 void Universidad::cerrarActa(){
+    if( !actas.empty() ){
+        while( true ){
+            int codigoActa, encontro = 0;
+            std::cout << "Digita el codigo del acta a cerrar [ CANCELAR = 0 ]: ";
+            std::cin >> codigoActa;
+            if( codigoActa != 0 ){
+                for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+                    if( acta->getEstado() != CERRADA && acta->getCodigo() == codigoActa ){
+                        acta->setEstado( CERRADA );
+                        encontro = 1;
+                        std::cout << "\nActa con codigo " << codigoActa << " cerrada " << std::endl;
+                        break;
+                    }
+                    else{
+                        std::cout << "\nActa con codigo " << codigoActa << " ya se encuentra cerrada" << std::endl;
+                        encontro = 1;
+                    }
+                }
+                if( encontro == 0 ){
+                    std::cout << "\nId invalido\n" << std::endl;
+                }
+                else if( encontro == 1){
+                    break;
+                }
+            }
+            else{
+                break;
+            }
+        }
+    }
+    else{
+        std::cout << "\nNo encontramos ninguna acta en nuestr abase de datos" << std::endl;
+    }
+}
 
+void Universidad::consultarActas( EstadoActaCerrada estadoActaCerrada ){
+    if( !actas.empty() ){
+        if( actas.size() > 1){
+            if( estadoActaCerrada == PENDIENTE ){
+                std::cout << "\nActas pendientes:\n" << std::endl;
+                for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+                    if( acta->getEstadoActaCerrada() == estadoActaCerrada ){
+                        acta->mostrarActa();
+                        break;
+                    }
+                }
+            }else if( estadoActaCerrada == RECHAZADA ){
+                std::cout << "\nActas rechazadas:\n" << std::endl;
+                for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+                    if( acta->getEstadoActaCerrada() == estadoActaCerrada ){
+                        acta->mostrarActa();
+                        break;
+                    }
+                }
+            }
+        }else{
+            if( estadoActaCerrada == PENDIENTE ){
+                if( actas.begin()->getEstadoActaCerrada() == estadoActaCerrada ){
+                    std::cout << "\nActas pendientes:\n" << std::endl;
+                    actas.begin()->mostrarActa();
+                }
+            }else if( estadoActaCerrada == RECHAZADA ){
+                if( actas.begin()->getEstadoActaCerrada() == estadoActaCerrada ){
+                    std::cout << "\nActas rechazadas:\n" << std::endl;
+                    actas.begin()->mostrarActa();
+                }
+            }
+        }
+    }
+    else{
+        std::cout << "\nNo encontramos ninguna acta en nuestr abase de datos" << std::endl;
+    }
+}
+
+void Universidad::consultarJurados( Tipo tipo ){
+    list<int> idsJurados;
+    if( !actas.empty() ){
+        for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+            list<Profesor> jurados = acta->getJurados();
+            if( !jurados.empty() ){
+                if( jurados.size() > 1 ){
+                    for( list<Profesor>::iterator jurado = jurados.begin(); jurado != jurados.end(); jurado++ ){
+                        if( jurado->getTipo() == tipo ){
+                            idsJurados.push_back( jurado->getId() );
+                        }
+                    }
+                }else{
+                    if( jurados.begin()->getTipo() == tipo ){
+                        idsJurados.push_back( jurados.begin()->getId() );
+                    }
+                }
+            }
+        }
+        for( list<int>::iterator idJurado = idsJurados.begin(); idJurado != idsJurados.end(); idJurado++ ){
+            for( list<Profesor>::iterator profesor = profesores.begin(); profesor != profesores.end(); profesor++ ){
+                if( profesor->getId() == *idJurado ){
+                    profesor->mostrarProfesor();
+                }
+            }
+        }
+    }else{
+        std::cout << "\nNo hay ninguna acta registrada por el momento." << std::endl;
+    }
+}
+
+void Universidad::listarCriterios( int codigoActa ){
+    if( !actas.empty() ){
+        for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+            if( acta->getCodigo() == codigoActa ){
+                list<Criterio> criterios = acta->getCriterios();
+                if( !criterios.empty() ){
+                    for( list<Criterio>::iterator criterio = criterios.begin(); criterio != criterios.end(); criterio++ ){
+                        criterio->mostrarCriterio();
+                    }
+                }else{
+                    std::cout << "\nN/A";
+                }
+                std::cout << "\n";
+            }
+        }
+    }else{
+        std::cout << "\nNo hay ninguna acta registrada por el momento." << std::endl;
+    }
 }
 
 //Muestra las actas dirigidas por 1 profe
@@ -1105,9 +1230,17 @@ void Universidad::actasDeUnProfesorJurado(){
             if( idProfesor == 0 ){
                 return;
             }
-            for( list<Profesor>::iterator profesor = profesores.begin(); profesor != profesores.end(); profesor++ ){
-                if( profesor->getId() == idProfesor ){
-                    profesorcito = *profesor;
+            if( profesores.size() > 1 ){
+                for( list<Profesor>::iterator profesor = profesores.begin(); profesor != profesores.end(); profesor++ ){
+                    if( profesor->getId() == idProfesor ){
+                        profesorcito = *profesor;
+                        encontro = 1;
+                        break;
+                    }
+                }
+            }else{
+                if( profesores.begin()->getId() == idProfesor ){
+                    profesorcito = *profesores.begin();
                     encontro = 1;
                     break;
                 }
@@ -1119,12 +1252,30 @@ void Universidad::actasDeUnProfesorJurado(){
                 std::cout << "\nId invalido\n" << std::endl;
             }
         }
-        for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
-            if( !acta->getJurados().empty() ){
-                for( list<Profesor>::iterator profesor = acta->getJurados().begin(); profesor != acta->getJurados().end(); profesor++ ){
+        if( actas.size() > 1 ){
+            for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+                if( !acta->getJurados().empty() ){
+                    if( acta->getJurados().size() > 1 ){
+                        for( list<Profesor>::iterator profesor = acta->getJurados().begin(); profesor != acta->getJurados().end(); profesor++ ){
+                            if( profesorcito.getId() == profesor->getId() ){
+                                contadorActasDeProfesorJurado += 1;
+                                acta->mostrarActa();
+                            }
+                        }
+                    }else{
+                        if( profesorcito.getId() == acta->getJurados().begin()->getId() ){
+                            contadorActasDeProfesorJurado += 1;
+                            acta->mostrarActa();
+                        }
+                    }
+                }
+            }
+        }else{
+            if( !actas.begin()->getJurados().empty() ){
+                for( list<Profesor>::iterator profesor = actas.begin()->getJurados().begin(); profesor != actas.begin()->getJurados().end(); profesor++ ){
                     if( profesorcito.getId() == profesor->getId() ){
                         contadorActasDeProfesorJurado += 1;
-                        acta->mostrarActa();
+                        actas.begin()->mostrarActa();
                     }
                 }
             }
@@ -1138,16 +1289,54 @@ void Universidad::actasDeUnProfesorJurado(){
     }
 }
 
+//MMMMMMMMMMMM
 //Muestra todos los jurados sin repetir de todas las actas
 void Universidad::mostrarActasConJurado(){
     list<Profesor> juradosParaMostrar;
     if( !actas.empty() ){
-        for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
-            if( !acta->getJurados().empty() ){
-                for( list<Profesor>::iterator profesor = acta->getJurados().begin(); profesor != acta->getJurados().end(); profesor++ ){
+        if( actas.size() > 1 ){
+            for( list<Acta>::iterator acta = actas.begin(); acta != actas.end(); acta++ ){
+                if( !acta->getJurados().empty() ){
+                    for( list<Profesor>::iterator profesor = acta->getJurados().begin(); profesor != acta->getJurados().end(); profesor++ ){
+                        if( !juradosParaMostrar.empty() ){
+                            if( juradosParaMostrar.size() > 1 ){
+                                for( list<Profesor>::iterator jurado = juradosParaMostrar.begin(); jurado != juradosParaMostrar.end(); profesor++ ){
+                                    if( jurado->getId() != profesor->getId() ){
+                                        juradosParaMostrar.push_back( *profesor );
+                                    }
+                                }
+                            }else{
+                                if( juradosParaMostrar.begin()->getId() != profesor->getId() ){
+                                    juradosParaMostrar.push_back( *profesor );
+                                }
+                            }
+                        }
+                        else{
+                            juradosParaMostrar.push_back( *profesor );
+                        }
+                    }
+                }
+            }
+            std::cout << "\nTotal de jurados encontrados: " << std::endl;
+            if( juradosParaMostrar.size() > 1 ){
+                for( list<Profesor>::iterator jurado = juradosParaMostrar.begin(); jurado != juradosParaMostrar.end(); jurado++ ){
+                    jurado->mostrarNombre();
+                }
+            }else{
+                juradosParaMostrar.begin()->mostrarNombre();
+            }
+        }else{
+            if( !actas.begin()->getJurados().empty() ){
+                for( list<Profesor>::iterator profesor = actas.begin()->getJurados().begin(); profesor != actas.begin()->getJurados().end(); profesor++ ){
                     if( !juradosParaMostrar.empty() ){
-                        for( list<Profesor>::iterator jurado = juradosParaMostrar.begin(); jurado != juradosParaMostrar.end(); profesor++ ){
-                            if( jurado->getId() != profesor->getId() ){
+                        if( juradosParaMostrar.size() > 1 ){
+                            for( list<Profesor>::iterator jurado = juradosParaMostrar.begin(); jurado != juradosParaMostrar.end(); profesor++ ){
+                                if( jurado->getId() != profesor->getId() ){
+                                    juradosParaMostrar.push_back( *profesor );
+                                }
+                            }
+                        }else{
+                            if( juradosParaMostrar.begin()->getId() != profesor->getId() ){
                                 juradosParaMostrar.push_back( *profesor );
                             }
                         }
@@ -1157,10 +1346,14 @@ void Universidad::mostrarActasConJurado(){
                     }
                 }
             }
-        }
-        std::cout << "\nTotal de jurados encontrados: " << std::endl;
-        for( list<Profesor>::iterator jurado = juradosParaMostrar.begin(); jurado != juradosParaMostrar.end(); jurado++ ){
-            jurado->mostrarNombre();
+            std::cout << "\nTotal de jurados encontrados: " << std::endl;
+            if( juradosParaMostrar.size() > 1 ){
+                for( list<Profesor>::iterator jurado = juradosParaMostrar.begin(); jurado != juradosParaMostrar.end(); jurado++ ){
+                    jurado->mostrarNombre();
+                }
+            }else{
+                juradosParaMostrar.begin()->mostrarNombre();
+            }
         }
     }
     else{
@@ -1299,7 +1492,11 @@ void Universidad::elDiablo(){
     estudiantes.push_back( Estudiante( 2, "Sebastian Tobar Quintero", "sebastianq@javerianacali.edu.co", "3152784840", "Ingenieria de Sistemas y Computacion", 3) );
     profesores.push_back( Profesor( 1, "Luisa Guachene", "luisaguachene@javerianacali.edu.co", "3146875478", "Profe de POO", INTERNO ) );
     profesores.push_back( Profesor( 2, "Gonzalo NoreNa", "gozocongonzo@javerianacali.edu.co", "3176175172", "Esposo de Guachene", INTERNO) );
+    profesores.push_back( Profesor( 3, "Yoan Pinzon", "Hijitos@javerianacali.edu.co", "31687454423", "Hijitos los Quiero Mucho", EXTERNO ) );
+    profesores.push_back( Profesor( 4, "ChupapiMuyaNo", "Chupapi@gmail.com", "3199999999", "Tiktoker", INTERNO ) );
     list<Profesor> jurados;
+    jurados.push_back( Profesor( 3, "Yoan Pinzon", "Hijitos@javerianacali.edu.co", "31687454423", "Hijitos los Quiero Mucho", EXTERNO ) );
+    jurados.push_back( Profesor( 4, "ChupapiMuyaNo", "Chupapi@gmail.com", "3199999999", "Tiktoker", INTERNO ) );
     list<Criterio> criterios;
     criterios.push_back( Criterio( "Desarrollo y profundidad en el tratamiento del tema: ", 5.0, 50, "Se desarrollo apropiadamente el tema y con la profundidad suficiente para su culminacion" ) );
     criterios.push_back( Criterio( "Desafio academico y cientifico del tema: ", 3.0, 50, "El trabajo estuvo bien soportado y con rigor cientifico" ) );

@@ -82,6 +82,46 @@ int main(){
             case 7:
                 javeriana.exportarActa();
                 break;
+            case 8:
+                {
+                    int opcion;
+                    do {
+                        std::cout << "\n---------- Consultar actas ----------\n" << std::endl;
+                        std::cout << "1. Consultar actas rechazadas" << std::endl;
+                        std::cout << "2. Consultar actas pendientes" << std::endl;
+                        std::cout << "0. Atras" << std::endl;
+                        std::cout << "\nDigita el numero: ";
+                        std::cin >> opcion;
+                        if( opcion != 0 ){
+                            javeriana.consultarActas( static_cast<EstadoActaCerrada>( opcion ) );
+                        }
+                    } while( opcion != 0 );
+                    break;
+                }
+            case 9:
+                {
+                    int opcion;
+                    do {
+                        std::cout << "\n---------- Consultar jurados ----------\n" << std::endl;
+                        std::cout << "1. Consultar jurados internos" << std::endl;
+                        std::cout << "2. Consultar jurados externos" << std::endl;
+                        std::cout << "0. Atras" << std::endl;
+                        std::cout << "\nDigita el numero: ";
+                        std::cin >> opcion;
+                        if( opcion != 0 ){
+                            javeriana.consultarJurados( static_cast<Tipo>( opcion - 1 ) );
+                        }
+                    } while( opcion != 0 );
+                    break;
+                }
+            case 10:
+                {
+                    int codigo;
+                    std::cout << "\nDigite el codigo del acta con los criterios a listar: ";
+                    std::cin >> codigo;
+                    javeriana.listarCriterios( codigo );
+                    break;
+                }
             case 666:
                 javeriana.elDiablo();
                 break;

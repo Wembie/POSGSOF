@@ -13,6 +13,10 @@ int menuUniversidad(){
     std::cout << "6. Cerrar acta" << std::endl;
     std::cout << "7. Exportar acta\n" << std::endl;
 
+    std::cout << "8. Consultar actas rechazadas/pendientes" << std::endl;
+    std::cout << "9. Consultar jurados internos/externos" << std::endl;
+    std::cout << "10. Listar criterios de un acta\n" << std::endl;
+
     std::cout << "666. Cargar acta, profesores y estudiantes por defecto\n" << std::endl;
 
     std::cout << "0. Salir\n" << std::endl;
@@ -56,6 +60,7 @@ int menuListarActas(){
     std::cout << "5. Listar actas aplicadas" << std::endl;
     std::cout << "6. Listar actas investigativas" << std::endl;
     std::cout << "7. Listar actas en la cual un profesor es jurado" << std::endl;
+    std::cout << "8. Mostrar todos los jurados" << std::endl;
 
     std::cout << "0. Atras\n" << std::endl;
     std::cout << "Digita el numero: ";

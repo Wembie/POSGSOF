@@ -182,7 +182,7 @@ float Acta::notaFinal(){
             }
         }
         return calificacion;
-    }  
+    }
     else{
         return -1;
     }
@@ -209,11 +209,15 @@ void Acta::exportar( int id ){
     }
     file << "\n\nEn atencion al desarrollo de este Trabajo de Grado y al documento y sustentacion que presento el(la) autor(a), los Jurados damos las siguientes calificaciones parciales y observaciones (los criterios a evaluar y sus ponderaciones se estipulan en el articulo 7.1 de las Directrices para Trabajo de Grado de Maestria):\n";
     file << "\nCriterios:\n\n";
-    for( list<Criterio>::iterator criterio = criterios.begin(); criterio != criterios.end(); criterio++ ){
-        file << criterio->getTema();
-        file << "\nCalificacion parcial: " << criterio->getCalificacion();
-        file << "\nPonderacion: " << criterio->getPonderacion() << "%";
-        file << "\nObservaciones: " << criterio->getObservacion();
+    if( !criterios.empty() ){
+        for( list<Criterio>::iterator criterio = criterios.begin(); criterio != criterios.end(); criterio++ ){
+            file << criterio->getTema();
+            file << "\nCalificacion parcial: " << criterio->getCalificacion();
+            file << "\nPonderacion: " << criterio->getPonderacion() << "%";
+            file << "\nObservaciones: " << criterio->getObservacion();
+        }
+    }else{
+        file << "\nN/A";
     }
     file << "\n\nComo resultado de estas calificaciones parciales y sus ponderaciones, la calificación del Trabajo de Grado es: " << notaFinal();
     file << "\n\n__________\n";
