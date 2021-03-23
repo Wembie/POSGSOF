@@ -96,6 +96,7 @@ int main(){
                     default:
                       std::cout << "\bLo sentimos, ingresa un numero entre 0 y 2";
                 }
+                break;
             case 9:
                 switch ( menuConsultarJurados() ) {
                     case 0:
@@ -109,6 +110,7 @@ int main(){
                     default:
                       std::cout << "\bLo sentimos, ingresa un numero entre 0 y 2";
                 }
+                break;
             case 10:
                 {
                     int codigo;
@@ -117,6 +119,7 @@ int main(){
                     javeriana.listarCriterios( codigo );
                     break;
                 }
+                break;
             case 69:
                 javeriana.sorpresa();
             case 666:
