@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-05-01T19:01:02.629Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36" etag="klDDvpOHwl13B57wXf7R" version="14.6.9" type="github">
+<mxfile host="app.diagrams.net" modified="2021-05-01T19:07:03.337Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36" etag="mzN2JmxP4L-ug6Q6da1L" version="14.6.9" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="1422" dy="1994" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
       <root>
@@ -362,6 +362,9 @@
               <mxPoint x="375" y="-244" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="JHsFQFPrYj9S2DAFN3HU-0" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;Juan Acosta - Sebastian Tobar&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;CAMBIOS:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify&quot;&gt;&lt;span&gt;Vista:&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify&quot;&gt;&lt;span&gt;Pasaríamos todo lo que tuviera que ver con menus y/o mostrar cosas, incluyendolos en la clase Vista y con ello un mejor manejo y/o mantenimiento&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify&quot;&gt;&lt;span&gt;Controlador:&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify&quot;&gt;&lt;span&gt;Pasariamos todo lo que tuviera que ver con cambios en actas, modificar cosas, y donde se almacenaria las listas de los objetos creados en este proyecto.&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="380" y="-560" width="370" height="220" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
